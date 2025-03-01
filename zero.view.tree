@@ -17,15 +17,15 @@ $optimade_zero $mol_book2
 									title <= item_id* \
 								<= Thumbs* $mol_image
 									uri <= item_thumbs* \
-								<= Formula* $mol_html_view
-									html <= item_html* \
-								<= Property* $mol_view
-									sub / <= item_property* \
 								<= Bib* $mol_view
 									sub /
 										\[
 										<= item_bib* \
 										\]
+								<= Formula* $mol_html_view
+									html <= item_html* \
+								<= Property* $mol_view
+									sub / <= item_property* \
 								<= Ref* $mol_link
 									uri <= item_ref* \
 									title \Ref.

@@ -19,9 +19,9 @@ namespace $.$$ {
 			return [
 				this.Id(obj),
 				// obj.thumbs_link() ? this.Thumbs(obj) : null,
+				obj.bib_id() ? this.Bib(obj) : null,
 				this.Formula(obj),
 				this.Property(obj),
-				obj.bib_id() ? this.Bib(obj) : null,
 				obj.ref_link() ? this.Ref(obj) : null,
 				obj.pdf_link() ? this.Pdf(obj) : null,
 				obj.png_link() ? this.Png(obj) : null,
