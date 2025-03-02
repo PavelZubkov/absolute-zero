@@ -4,23 +4,14 @@ namespace $.$$ {
 
 		Search_page: {
 			flex: {
-				basis: 'auto',
-				grow: 1,
+				basis: '40rem',
 			},
 		},
 
-		Id: {
-			padding: $mol_gap.text,
-			width: '7rem',
-		},
-
-		Bib: {
-			padding: $mol_gap.text,
-			width: '7rem',
-		},
-
-		Property: {
-			padding: $mol_gap.text,
+		Results_page: {
+			flex: {
+				basis: '40rem',
+			},
 		},
 
 		Search_error: {
@@ -32,7 +23,11 @@ namespace $.$$ {
 		Search_nothing_found: {
 			padding: '100px',
 			margin: 'auto',
-		}
+		},
+
+		Count: {
+			padding: $mol_gap.text,
+		},
 	} )
 
 }

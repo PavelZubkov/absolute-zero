@@ -5,6 +5,19 @@ $optimade_zero $mol_book2
 	pages /
 		<= Search_page $mol_page
 			title \−273.15°C
+			tools /
+				<= Count $mol_paragraph
+					title / <= count @ \Estimated results count {count}
+			foot /
+				<= Login $mol_link
+					arg * login \
+					sub /
+						<= Login_icon $mol_icon_login
+				<= Open_results $mol_link
+					arg * results \
+					sub / 
+						<= open_results_label @ \Open results
+						<= Open_results_icon $mol_icon_arrow_right_bold
 			body <= search_page_body /
 				<= Search_input $optimade_zero_search_input
 					Search <= Search
@@ -25,37 +38,6 @@ $optimade_zero $mol_book2
 				<= Search_error $mol_view
 					sub / <= search_error
 				<= Search_nothing_found $mol_view
-					sub / <= nothing_found @ \Nothing found
-				<= Search_results $mol_list
-					rows <= search_results /
-						<= Item*0 $mol_row
-							sub <= item_row* /
-								<= Id* $mol_paragraph
-									title <= item_id* \
-								<= Thumbs* $mol_image
-									uri <= item_thumbs* \
-								<= Bib* $mol_view
-									sub /
-										\[
-										<= item_bib* \
-										\]
-								<= Formula* $mol_html_view
-									html <= item_html* \
-								<= Property* $mol_view
-									sub / <= item_property* \
-								<= Ref* $mol_link
-									uri <= item_ref* \
-									title \Ref.
-									target \_blank
-								<= Pdf* $mol_link
-									uri <= item_pdf* \
-									title \PDF
-									target \_blank
-								<= Png* $mol_link
-									uri <= item_png* \
-									title \PNG
-									target \_blank
-								<= Gif* $mol_link
-									uri <= item_gif* \
-									title \GIF
-									target \_blank
+					sub / <= nothing_found @ \Nothing found	
+		<= Results_page $optimade_zero_entry_page 
+			Search <= Search

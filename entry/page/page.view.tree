@@ -1,0 +1,61 @@
+$optimade_zero_entry_page $mol_page
+	Search $optimade_zero_search
+	title @ \Showing {count} results
+	tools /
+		<= Close $mol_link
+			arg * 
+				results null
+			sub / <= Close_icon $mol_icon_close
+	body /
+		<= Search_results $mol_list
+			rows <= search_results /
+				<= Card*0 $mol_card
+					content <= card_content* /
+						<= Thumbs_label* $mol_labeler
+							title @ \Thumbs
+							content /
+								<= Thumbs* $mol_image
+									uri <= item_thumbs* \
+						<= Id_label* $mol_labeler
+							title @ \Entry
+							content /
+								<= Id* $mol_paragraph
+									title <= item_id* \
+						<= Property_label* $mol_labeler
+							title @ \Property
+							content /
+								<= Property* $mol_view
+									sub / <= item_property* \
+						<= Formula_label* $mol_labeler
+							title @ \Formula
+							content /
+								<= Formula* $mol_html_view
+									html <= item_html* \
+						<= Bib_label* $mol_labeler
+							title @ \Bib
+							content /
+								<= Bib* $mol_view
+									sub /
+										\[
+										<= item_bib* \
+										\]
+						<= Card_links* $mol_view
+							sub <= links* /
+								<= Ref* $mol_link
+									uri <= item_ref* \
+									title \Ref.
+									target \_blank
+								<= Pdf* $mol_link
+									uri <= item_pdf* \
+									title \PDF
+									target \_blank
+								<= Png* $mol_link
+									uri <= item_png* \
+									title \PNG
+									target \_blank
+								<= Gif* $mol_link
+									uri <= item_gif* \
+									title \GIF
+									target \_blank
+				<= Item*0 $mol_row
+					sub <= item_row* /

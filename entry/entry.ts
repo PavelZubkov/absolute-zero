@@ -53,7 +53,8 @@ namespace $ {
 
 		thumbs_link() {
 			if( this.type() === 'P' ) return ''
-			return `${ this.cdn_uri() }/${ this.type() === 'C' ? `pd_thumbs/${ this.id_prefix() }` : 'rd_thumbs' }/.png`
+			const type = this.type() === 'C' ? `pd_thumbs/${ this.id_prefix() }` : 'rd_thumbs'
+			return `${ this.cdn_uri() }/${ type }/.png`
 		}
 
 		ref_link() {
