@@ -605,8 +605,9 @@ $optimade_zero $mol_book2
 				<= Open_results $mol_link
 					arg * page \results
 					sub / 
-						<= open_results_label @ \Open results
 						<= Open_results_icon $mol_icon_arrow_right_bold
+						<= open_results_label @ \Open results
+						<= Open_results_icon2 $mol_icon_arrow_right_bold
 			body <= search_page_body /
 				<= Search_input $optimade_zero_search_input
 					Search <= Search

@@ -10026,17 +10026,25 @@ var $;
 			(obj.hint) = () => ("Login");
 			return obj;
 		}
+		Open_results_icon(){
+			const obj = new this.$.$mol_icon_arrow_right_bold();
+			return obj;
+		}
 		open_results_label(){
 			return (this.$.$mol_locale.text("$optimade_zero_open_results_label"));
 		}
-		Open_results_icon(){
+		Open_results_icon2(){
 			const obj = new this.$.$mol_icon_arrow_right_bold();
 			return obj;
 		}
 		Open_results(){
 			const obj = new this.$.$mol_link();
 			(obj.arg) = () => ({"page": "results"});
-			(obj.sub) = () => ([(this.open_results_label()), (this.Open_results_icon())]);
+			(obj.sub) = () => ([
+				(this.Open_results_icon()), 
+				(this.open_results_label()), 
+				(this.Open_results_icon2())
+			]);
 			return obj;
 		}
 		clear_search(next){
@@ -10173,6 +10181,7 @@ var $;
 	($mol_mem(($.$optimade_zero.prototype), "Account_icon"));
 	($mol_mem(($.$optimade_zero.prototype), "Login"));
 	($mol_mem(($.$optimade_zero.prototype), "Open_results_icon"));
+	($mol_mem(($.$optimade_zero.prototype), "Open_results_icon2"));
 	($mol_mem(($.$optimade_zero.prototype), "Open_results"));
 	($mol_mem(($.$optimade_zero.prototype), "clear_search"));
 	($mol_mem(($.$optimade_zero.prototype), "Search_input"));

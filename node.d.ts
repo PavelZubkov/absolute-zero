@@ -4033,8 +4033,9 @@ declare namespace $ {
 		Account_icon( ): $mol_icon_account
 		login_icon( ): readonly(any)[]
 		Login( ): $mol_link
-		open_results_label( ): string
 		Open_results_icon( ): $mol_icon_arrow_right_bold
+		open_results_label( ): string
+		Open_results_icon2( ): $mol_icon_arrow_right_bold
 		Open_results( ): $mol_link
 		clear_search( next?: any ): any
 		Search_input( ): $optimade_zero_search_input
