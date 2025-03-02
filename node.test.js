@@ -8358,6 +8358,18 @@ var $;
 var $;
 (function ($) {
     class $optimade_zero_entry extends $mol_store {
+        fields() {
+            return {
+                entry_id: 0,
+                formula: 1,
+                property: 2,
+                idk: 3,
+                is_public: 4,
+                bib_id: 5,
+                year: 6,
+                ref_id: 7,
+            };
+        }
         cdn_uri() {
             return 'https://mpds.io';
         }
@@ -8365,66 +8377,65 @@ var $;
             return 'https://api.mpds.io/v0';
         }
         id() {
-            return this.value(0);
+            return this.value(this.fields().entry_id);
         }
         id_prefix() {
-            return this.value(0).split('-')[0];
+            return this.value(this.fields().entry_id).split('-')[0];
         }
         type() {
-            return this.id()[0];
+            return this.id()[this.fields().entry_id];
         }
         formula_html() {
-            return this.value(1);
+            return this.value(this.fields().formula);
         }
         property() {
-            return this.value(2);
-        }
-        data_type() {
-            if (this.value(3) === 7)
-                return 'ml_data';
-            if ([8, 9, 10, 11].includes(this.value(3)))
-                return 'ab_data';
-            return '';
+            return this.value(this.fields().property);
         }
         is_public() {
-            return this.value(4);
+            return this.value(this.fields().is_public);
         }
         bib_id() {
-            return this.ref_id() === 999999 ? 0 : this.value(5);
+            return this.ref_id() === 999999 ? 0 : this.value(this.fields().bib_id);
         }
         year() {
-            return this.value(6);
+            return this.value(this.fields().year);
         }
         ref_id() {
-            return this.value(7);
+            return this.value(this.fields().ref_id);
+        }
+        res_link(fmt, sid = '') {
+            return `${this.api_uri()}/download/${this.type().toLowerCase()}?q=${this.id_prefix()}&sid=${sid}&fmt=${fmt}`;
         }
         thumbs_link() {
             if (this.type() === 'P')
                 return '';
-            const type = this.type() === 'C' ? `pd_thumbs/${this.id_prefix()}` : 'rd_thumbs';
-            return `${this.cdn_uri()}/${type}/.png`;
+            const thumbs_part = this.type() === 'C' ? `pd_thumbs/${this.id_prefix()}` : 'rd_thumbs';
+            return `${this.cdn_uri()}/${thumbs_part}/.png`;
         }
-        ref_link() {
-            if (this.type() !== 'P')
-                return '';
-            return `${this.api_uri()}/download/bib?ref_id=${this.ref_id()}&sid=&fmt=bib`;
-        }
-        pdf_link() {
-            if (this.type() !== 'P')
-                return '';
-            return `${this.api_uri()}/download/${this.type().toLowerCase()}?q=${this.id_prefix()}&sid=&fmt=pdf`;
-        }
-        png_link() {
-            if (this.type() === 'P')
-                return '';
-            return `${this.api_uri()}/download/${this.type().toLowerCase()}?q=${this.id_prefix()}&sid=&fmt=png`;
-        }
-        gif_link() {
-            if (this.type() !== 'S')
-                return '';
-            return `${this.api_uri()}/download/${this.type().toLowerCase()}?q=${this.id_prefix()}&fmt=gif`;
+        links(sid = '') {
+            const links = {
+                ref: `${this.api_uri()}/download/bib?ref_id=${this.ref_id()}&sid=${sid}&fmt=bib`,
+                pdf: this.res_link('pdf', sid),
+                png: this.res_link('png', sid),
+                gif: this.res_link('gif', sid),
+                json: this.res_link('json', sid),
+            };
+            if (this.type() === 'P') {
+                delete links.png;
+            }
+            else {
+                delete links.ref;
+                delete links.pdf;
+            }
+            if (this.type() !== 'S') {
+                delete links.gif;
+            }
+            return links;
         }
     }
+    __decorate([
+        $mol_mem
+    ], $optimade_zero_entry.prototype, "links", null);
     $.$optimade_zero_entry = $optimade_zero_entry;
 })($ || ($ = {}));
 
@@ -9119,6 +9130,67 @@ var $;
 "use strict";
 
 ;
+"use strict";
+var $;
+(function ($) {
+    const Rec = $mol_data_record;
+    const Str = $mol_data_string;
+    const Response = Rec({
+        name: Str,
+        sid: Str,
+    });
+    class $optimade_zero_user extends $mol_object {
+        uri() {
+            return 'https://api.mpds.io/v0/users';
+        }
+        sign_in(login, pass) {
+            const form = new FormData();
+            form.append('login', login);
+            form.append('pass', pass);
+            const res = this.$.$mol_fetch.json(`${this.uri()}/login`, { method: 'post', body: form });
+            const json = Response(res);
+            this.data(json);
+        }
+        sign_out() {
+            const form = new FormData();
+            form.append('sid', this.sid());
+            this.$.$mol_fetch.json(`${this.uri()}/logout`, { method: 'post', body: form });
+            this.data(null);
+        }
+        pass_recovery(login) {
+            const form = new FormData();
+            form.append('login', login);
+            this.$.$mol_fetch.json(`${this.uri()}/lost_password`, { method: 'post', body: form });
+        }
+        data(next) {
+            return this.$.$mol_state_local.value('user', next) ?? null;
+        }
+        name() {
+            return this.data()?.name ?? '';
+        }
+        sid() {
+            return this.data()?.sid ?? '';
+        }
+        signed() {
+            return !!this.data();
+        }
+    }
+    __decorate([
+        $mol_action
+    ], $optimade_zero_user.prototype, "sign_in", null);
+    __decorate([
+        $mol_action
+    ], $optimade_zero_user.prototype, "sign_out", null);
+    __decorate([
+        $mol_action
+    ], $optimade_zero_user.prototype, "pass_recovery", null);
+    __decorate([
+        $mol_mem
+    ], $optimade_zero_user.prototype, "data", null);
+    $.$optimade_zero_user = $optimade_zero_user;
+})($ || ($ = {}));
+
+;
 	($.$optimade_zero_entry_page) = class $optimade_zero_entry_page extends ($.$mol_page) {
 		Close_icon(){
 			const obj = new this.$.$mol_icon_close();
@@ -9204,53 +9276,21 @@ var $;
 			(obj.content) = () => ([(this.Bib(id))]);
 			return obj;
 		}
-		item_ref(id){
+		link_uri(id){
 			return "";
 		}
-		Ref(id){
-			const obj = new this.$.$mol_link();
-			(obj.uri) = () => ((this.item_ref(id)));
-			(obj.title) = () => ("Ref.");
-			(obj.target) = () => ("_blank");
-			return obj;
-		}
-		item_pdf(id){
+		link_title(id){
 			return "";
 		}
-		Pdf(id){
+		Link(id){
 			const obj = new this.$.$mol_link();
-			(obj.uri) = () => ((this.item_pdf(id)));
-			(obj.title) = () => ("PDF");
-			(obj.target) = () => ("_blank");
-			return obj;
-		}
-		item_png(id){
-			return "";
-		}
-		Png(id){
-			const obj = new this.$.$mol_link();
-			(obj.uri) = () => ((this.item_png(id)));
-			(obj.title) = () => ("PNG");
-			(obj.target) = () => ("_blank");
-			return obj;
-		}
-		item_gif(id){
-			return "";
-		}
-		Gif(id){
-			const obj = new this.$.$mol_link();
-			(obj.uri) = () => ((this.item_gif(id)));
-			(obj.title) = () => ("GIF");
+			(obj.uri) = () => ((this.link_uri(id)));
+			(obj.title) = () => ((this.link_title(id)));
 			(obj.target) = () => ("_blank");
 			return obj;
 		}
 		links(id){
-			return [
-				(this.Ref(id)), 
-				(this.Pdf(id)), 
-				(this.Png(id)), 
-				(this.Gif(id))
-			];
+			return [(this.Link("0"))];
 		}
 		Card_links(id){
 			const obj = new this.$.$mol_view();
@@ -9292,6 +9332,10 @@ var $;
 			const obj = new this.$.$optimade_zero_search();
 			return obj;
 		}
+		User(){
+			const obj = new this.$.$optimade_zero_user();
+			return obj;
+		}
 		title(){
 			return (this.$.$mol_locale.text("$optimade_zero_entry_page_title"));
 		}
@@ -9314,15 +9358,13 @@ var $;
 	($mol_mem_key(($.$optimade_zero_entry_page.prototype), "Formula_label"));
 	($mol_mem_key(($.$optimade_zero_entry_page.prototype), "Bib"));
 	($mol_mem_key(($.$optimade_zero_entry_page.prototype), "Bib_label"));
-	($mol_mem_key(($.$optimade_zero_entry_page.prototype), "Ref"));
-	($mol_mem_key(($.$optimade_zero_entry_page.prototype), "Pdf"));
-	($mol_mem_key(($.$optimade_zero_entry_page.prototype), "Png"));
-	($mol_mem_key(($.$optimade_zero_entry_page.prototype), "Gif"));
+	($mol_mem_key(($.$optimade_zero_entry_page.prototype), "Link"));
 	($mol_mem_key(($.$optimade_zero_entry_page.prototype), "Card_links"));
 	($mol_mem_key(($.$optimade_zero_entry_page.prototype), "Card"));
 	($mol_mem_key(($.$optimade_zero_entry_page.prototype), "Item"));
 	($mol_mem(($.$optimade_zero_entry_page.prototype), "Search_results"));
 	($mol_mem(($.$optimade_zero_entry_page.prototype), "Search"));
+	($mol_mem(($.$optimade_zero_entry_page.prototype), "User"));
 
 
 ;
@@ -9353,19 +9395,11 @@ var $;
                     this.Card_links(obj),
                 ];
             }
-            links(obj) {
-                return [
-                    ...obj.ref_link() ? [this.Ref(obj)] : [],
-                    ...obj.pdf_link() ? [this.Pdf(obj)] : [],
-                    ...obj.png_link() ? [this.Png(obj)] : [],
-                    ...obj.gif_link() ? [this.Gif(obj)] : [],
-                ];
+            item_thumbs(obj) {
+                return obj.thumbs_link();
             }
             item_id(obj) {
                 return obj.id();
-            }
-            item_thumbs(obj) {
-                return obj.thumbs_link();
             }
             item_html(obj) {
                 return `<div>${obj.formula_html()}</div>`;
@@ -9376,17 +9410,15 @@ var $;
             item_bib(obj) {
                 return `${obj.bib_id()}'${obj.year().toString().slice(-2)}`;
             }
-            item_ref(obj) {
-                return obj.ref_link();
+            links(obj) {
+                const formats = Object.keys(obj.links());
+                return formats.map(format => this.Link([obj, format]));
             }
-            item_pdf(obj) {
-                return obj.pdf_link();
+            link_uri([obj, format]) {
+                return obj.links(this.User().sid())[format];
             }
-            item_png(obj) {
-                return obj.png_link();
-            }
-            item_gif(obj) {
-                return obj.gif_link();
+            link_title([obj, format]) {
+                return format;
             }
         }
         $$.$optimade_zero_entry_page = $optimade_zero_entry_page;
@@ -9419,69 +9451,14 @@ var $;
             Search_results: {
                 gap: $mol_gap.block,
             },
+            Thumbs: {
+                width: '80px',
+            },
+            Link: {
+                textTransform: 'uppercase',
+            },
         });
     })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    const Rec = $mol_data_record;
-    const Str = $mol_data_string;
-    const Response = Rec({
-        name: Str,
-        sid: Str,
-    });
-    class $optimade_zero_user extends $mol_object {
-        uri() {
-            return 'https://api.mpds.io/v0/users';
-        }
-        sign_in(login, pass) {
-            const form = new FormData();
-            form.append('login', login);
-            form.append('pass', pass);
-            const res = this.$.$mol_fetch.json(`${this.uri()}/login`, { method: 'post', body: form });
-            const json = Response(res);
-            this.data(json);
-        }
-        sign_out() {
-            const form = new FormData();
-            form.append('sid', this.sid());
-            this.$.$mol_fetch.json(`${this.uri()}/logout`, { method: 'post', body: form });
-            this.data(null);
-        }
-        pass_recovery(login) {
-            const form = new FormData();
-            form.append('login', login);
-            this.$.$mol_fetch.json(`${this.uri()}/lost_password`, { method: 'post', body: form });
-        }
-        data(next) {
-            return this.$.$mol_state_local.value('user', next) ?? null;
-        }
-        name() {
-            return this.data()?.name ?? '';
-        }
-        sid() {
-            return this.data()?.sid ?? '';
-        }
-        signed() {
-            return !!this.data();
-        }
-    }
-    __decorate([
-        $mol_action
-    ], $optimade_zero_user.prototype, "sign_in", null);
-    __decorate([
-        $mol_action
-    ], $optimade_zero_user.prototype, "sign_out", null);
-    __decorate([
-        $mol_action
-    ], $optimade_zero_user.prototype, "pass_recovery", null);
-    __decorate([
-        $mol_mem
-    ], $optimade_zero_user.prototype, "data", null);
-    $.$optimade_zero_user = $optimade_zero_user;
 })($ || ($ = {}));
 
 ;
@@ -10126,6 +10103,7 @@ var $;
 		Results_page(){
 			const obj = new this.$.$optimade_zero_entry_page();
 			(obj.Search) = () => ((this.Search()));
+			(obj.User) = () => ((this.User()));
 			return obj;
 		}
 		User_page(){

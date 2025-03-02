@@ -2916,6 +2916,16 @@ declare namespace $ {
 
 declare namespace $ {
     class $optimade_zero_entry extends $mol_store<typeof $optimade_zero_search_entry.Value> {
+        fields(): {
+            readonly entry_id: 0;
+            readonly formula: 1;
+            readonly property: 2;
+            readonly idk: 3;
+            readonly is_public: 4;
+            readonly bib_id: 5;
+            readonly year: 6;
+            readonly ref_id: 7;
+        };
         cdn_uri(): string;
         api_uri(): string;
         id(): string;
@@ -2923,16 +2933,13 @@ declare namespace $ {
         type(): string;
         formula_html(): string;
         property(): string;
-        data_type(): "" | "ml_data" | "ab_data";
         is_public(): boolean;
         bib_id(): string | 0;
         year(): number;
         ref_id(): number;
+        res_link(fmt: 'pdf' | 'png' | 'gif' | 'json', sid?: string): string;
         thumbs_link(): string;
-        ref_link(): string;
-        pdf_link(): string;
-        png_link(): string;
-        gif_link(): string;
+        links(sid?: string): Record<string, string>;
     }
 }
 
@@ -3309,6 +3316,39 @@ declare namespace $ {
 
 //# sourceMappingURL=row.view.tree.d.ts.map
 declare namespace $ {
+    const Response: ((val: {
+        name: string;
+        sid: string;
+    }) => Readonly<{
+        name: string;
+        sid: string;
+    }>) & {
+        config: {
+            name: (val: string) => string;
+            sid: (val: string) => string;
+        };
+        Value: Readonly<{
+            name: string;
+            sid: string;
+        }>;
+    };
+    export class $optimade_zero_user extends $mol_object {
+        uri(): string;
+        sign_in(login: string, pass: string): void;
+        sign_out(): void;
+        pass_recovery(login: string): void;
+        data(next?: typeof Response.Value | null): Readonly<{
+            name: string;
+            sid: string;
+        }> | null;
+        name(): string;
+        sid(): string;
+        signed(): boolean;
+    }
+    export {};
+}
+
+declare namespace $ {
 
 	type $mol_link__arg_optimade_zero_entry_page_1 = $mol_type_enforce<
 		({ 
@@ -3398,12 +3438,12 @@ declare namespace $ {
 		ReturnType< $mol_labeler['content'] >
 	>
 	type $mol_link__uri_optimade_zero_entry_page_18 = $mol_type_enforce<
-		ReturnType< $optimade_zero_entry_page['item_ref'] >
+		ReturnType< $optimade_zero_entry_page['link_uri'] >
 		,
 		ReturnType< $mol_link['uri'] >
 	>
 	type $mol_link__title_optimade_zero_entry_page_19 = $mol_type_enforce<
-		string
+		ReturnType< $optimade_zero_entry_page['link_title'] >
 		,
 		ReturnType< $mol_link['title'] >
 	>
@@ -3412,67 +3452,22 @@ declare namespace $ {
 		,
 		ReturnType< $mol_link['target'] >
 	>
-	type $mol_link__uri_optimade_zero_entry_page_21 = $mol_type_enforce<
-		ReturnType< $optimade_zero_entry_page['item_pdf'] >
-		,
-		ReturnType< $mol_link['uri'] >
-	>
-	type $mol_link__title_optimade_zero_entry_page_22 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link['title'] >
-	>
-	type $mol_link__target_optimade_zero_entry_page_23 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link['target'] >
-	>
-	type $mol_link__uri_optimade_zero_entry_page_24 = $mol_type_enforce<
-		ReturnType< $optimade_zero_entry_page['item_png'] >
-		,
-		ReturnType< $mol_link['uri'] >
-	>
-	type $mol_link__title_optimade_zero_entry_page_25 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link['title'] >
-	>
-	type $mol_link__target_optimade_zero_entry_page_26 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link['target'] >
-	>
-	type $mol_link__uri_optimade_zero_entry_page_27 = $mol_type_enforce<
-		ReturnType< $optimade_zero_entry_page['item_gif'] >
-		,
-		ReturnType< $mol_link['uri'] >
-	>
-	type $mol_link__title_optimade_zero_entry_page_28 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link['title'] >
-	>
-	type $mol_link__target_optimade_zero_entry_page_29 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link['target'] >
-	>
-	type $mol_view__sub_optimade_zero_entry_page_30 = $mol_type_enforce<
+	type $mol_view__sub_optimade_zero_entry_page_21 = $mol_type_enforce<
 		ReturnType< $optimade_zero_entry_page['links'] >
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_card__content_optimade_zero_entry_page_31 = $mol_type_enforce<
+	type $mol_card__content_optimade_zero_entry_page_22 = $mol_type_enforce<
 		ReturnType< $optimade_zero_entry_page['card_content'] >
 		,
 		ReturnType< $mol_card['content'] >
 	>
-	type $mol_row__sub_optimade_zero_entry_page_32 = $mol_type_enforce<
+	type $mol_row__sub_optimade_zero_entry_page_23 = $mol_type_enforce<
 		ReturnType< $optimade_zero_entry_page['item_row'] >
 		,
 		ReturnType< $mol_row['sub'] >
 	>
-	type $mol_list__rows_optimade_zero_entry_page_33 = $mol_type_enforce<
+	type $mol_list__rows_optimade_zero_entry_page_24 = $mol_type_enforce<
 		ReturnType< $optimade_zero_entry_page['search_results'] >
 		,
 		ReturnType< $mol_list['rows'] >
@@ -3495,14 +3490,9 @@ declare namespace $ {
 		item_bib( id: any): string
 		Bib( id: any): $mol_view
 		Bib_label( id: any): $mol_labeler
-		item_ref( id: any): string
-		Ref( id: any): $mol_link
-		item_pdf( id: any): string
-		Pdf( id: any): $mol_link
-		item_png( id: any): string
-		Png( id: any): $mol_link
-		item_gif( id: any): string
-		Gif( id: any): $mol_link
+		link_uri( id: any): string
+		link_title( id: any): string
+		Link( id: any): $mol_link
 		links( id: any): readonly(any)[]
 		Card_links( id: any): $mol_view
 		card_content( id: any): readonly(any)[]
@@ -3512,6 +3502,7 @@ declare namespace $ {
 		search_results( ): readonly(any)[]
 		Search_results( ): $mol_list
 		Search( ): $optimade_zero_search
+		User( ): $optimade_zero_user
 		title( ): string
 		tools( ): readonly(any)[]
 		body( ): readonly(any)[]
@@ -3525,53 +3516,18 @@ declare namespace $.$$ {
         title(): string;
         search_results(): $.$mol_card[];
         card_content(obj: $optimade_zero_entry): $mol_view[];
-        links(obj: $optimade_zero_entry): $.$mol_link[];
-        item_id(obj: $optimade_zero_entry): string;
         item_thumbs(obj: $optimade_zero_entry): string;
+        item_id(obj: $optimade_zero_entry): string;
         item_html(obj: $optimade_zero_entry): string;
         item_property(obj: $optimade_zero_entry): string;
         item_bib(obj: $optimade_zero_entry): string;
-        item_ref(obj: $optimade_zero_entry): string;
-        item_pdf(obj: $optimade_zero_entry): string;
-        item_png(obj: $optimade_zero_entry): string;
-        item_gif(obj: $optimade_zero_entry): string;
+        links(obj: $optimade_zero_entry): $.$mol_link[];
+        link_uri([obj, format]: [$optimade_zero_entry, string]): string;
+        link_title([obj, format]: [$optimade_zero_entry, string]): string;
     }
 }
 
 declare namespace $.$$ {
-}
-
-declare namespace $ {
-    const Response: ((val: {
-        name: string;
-        sid: string;
-    }) => Readonly<{
-        name: string;
-        sid: string;
-    }>) & {
-        config: {
-            name: (val: string) => string;
-            sid: (val: string) => string;
-        };
-        Value: Readonly<{
-            name: string;
-            sid: string;
-        }>;
-    };
-    export class $optimade_zero_user extends $mol_object {
-        uri(): string;
-        sign_in(login: string, pass: string): void;
-        sign_out(): void;
-        pass_recovery(login: string): void;
-        data(next?: typeof Response.Value | null): Readonly<{
-            name: string;
-            sid: string;
-        }> | null;
-        name(): string;
-        sid(): string;
-        signed(): boolean;
-    }
-    export {};
 }
 
 declare namespace $ {
@@ -4042,12 +3998,17 @@ declare namespace $ {
 		,
 		ReturnType< $optimade_zero_entry_page['Search'] >
 	>
-	type $optimade_zero_user_page__User_optimade_zero_24 = $mol_type_enforce<
+	type $optimade_zero_entry_page__User_optimade_zero_24 = $mol_type_enforce<
+		ReturnType< $optimade_zero['User'] >
+		,
+		ReturnType< $optimade_zero_entry_page['User'] >
+	>
+	type $optimade_zero_user_page__User_optimade_zero_25 = $mol_type_enforce<
 		ReturnType< $optimade_zero['User'] >
 		,
 		ReturnType< $optimade_zero_user_page['User'] >
 	>
-	type $optimade_zero_search__params_optimade_zero_25 = $mol_type_enforce<
+	type $optimade_zero_search__params_optimade_zero_26 = $mol_type_enforce<
 		ReturnType< $optimade_zero['search_params'] >
 		,
 		ReturnType< $optimade_zero_search['params'] >
