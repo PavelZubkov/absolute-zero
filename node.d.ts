@@ -3918,97 +3918,107 @@ declare namespace $ {
 		,
 		ReturnType< $optimade_zero_search_input['Search'] >
 	>
-	type $mol_switch__value_optimade_zero_8 = $mol_type_enforce<
+	type $optimade_zero_search_input__clear_optimade_zero_8 = $mol_type_enforce<
+		ReturnType< $optimade_zero['clear_search'] >
+		,
+		ReturnType< $optimade_zero_search_input['clear'] >
+	>
+	type $mol_switch__value_optimade_zero_9 = $mol_type_enforce<
 		ReturnType< $optimade_zero['arity'] >
 		,
 		ReturnType< $mol_switch['value'] >
 	>
-	type $mol_switch__options_optimade_zero_9 = $mol_type_enforce<
+	type $mol_switch__options_optimade_zero_10 = $mol_type_enforce<
 		ReturnType< $optimade_zero['arity_dict'] >
 		,
 		ReturnType< $mol_switch['options'] >
 	>
-	type $mol_labeler__title_optimade_zero_10 = $mol_type_enforce<
+	type $mol_labeler__title_optimade_zero_11 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_labeler__content_optimade_zero_11 = $mol_type_enforce<
+	type $mol_labeler__content_optimade_zero_12 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_labeler['content'] >
 	>
-	type $mol_link__arg_optimade_zero_12 = $mol_type_enforce<
+	type $mol_link__arg_optimade_zero_13 = $mol_type_enforce<
 		ReturnType< $optimade_zero['refinement_link_arg'] >
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__title_optimade_zero_13 = $mol_type_enforce<
+	type $mol_link__title_optimade_zero_14 = $mol_type_enforce<
 		ReturnType< $optimade_zero['refinement_link_title'] >
 		,
 		ReturnType< $mol_link['title'] >
 	>
-	type $mol_labeler__title_optimade_zero_14 = $mol_type_enforce<
+	type $mol_labeler__title_optimade_zero_15 = $mol_type_enforce<
 		ReturnType< $optimade_zero['refinement_title'] >
 		,
 		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_labeler__content_optimade_zero_15 = $mol_type_enforce<
+	type $mol_labeler__content_optimade_zero_16 = $mol_type_enforce<
 		ReturnType< $optimade_zero['refinement_content'] >
 		,
 		ReturnType< $mol_labeler['content'] >
 	>
-	type $mol_list__rows_optimade_zero_16 = $mol_type_enforce<
+	type $mol_list__rows_optimade_zero_17 = $mol_type_enforce<
 		ReturnType< $optimade_zero['refinements'] >
 		,
 		ReturnType< $mol_list['rows'] >
-	>
-	type $mol_view__sub_optimade_zero_17 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
 	>
 	type $mol_view__sub_optimade_zero_18 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_page__title_optimade_zero_19 = $mol_type_enforce<
+	type $mol_view__sub_optimade_zero_19 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_optimade_zero_20 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_page__title_optimade_zero_21 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_optimade_zero_20 = $mol_type_enforce<
-		readonly(any)[]
+	type $mol_page__tools_optimade_zero_22 = $mol_type_enforce<
+		ReturnType< $optimade_zero['search_page_tools'] >
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__foot_optimade_zero_21 = $mol_type_enforce<
+	type $mol_page__foot_optimade_zero_23 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['foot'] >
 	>
-	type $mol_page__body_optimade_zero_22 = $mol_type_enforce<
+	type $mol_page__body_optimade_zero_24 = $mol_type_enforce<
 		ReturnType< $optimade_zero['search_page_body'] >
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $optimade_zero_entry_page__Search_optimade_zero_23 = $mol_type_enforce<
+	type $optimade_zero_entry_page__Search_optimade_zero_25 = $mol_type_enforce<
 		ReturnType< $optimade_zero['Search'] >
 		,
 		ReturnType< $optimade_zero_entry_page['Search'] >
 	>
-	type $optimade_zero_entry_page__User_optimade_zero_24 = $mol_type_enforce<
+	type $optimade_zero_entry_page__User_optimade_zero_26 = $mol_type_enforce<
 		ReturnType< $optimade_zero['User'] >
 		,
 		ReturnType< $optimade_zero_entry_page['User'] >
 	>
-	type $optimade_zero_user_page__User_optimade_zero_25 = $mol_type_enforce<
+	type $optimade_zero_user_page__User_optimade_zero_27 = $mol_type_enforce<
 		ReturnType< $optimade_zero['User'] >
 		,
 		ReturnType< $optimade_zero_user_page['User'] >
 	>
-	type $optimade_zero_search__params_optimade_zero_26 = $mol_type_enforce<
+	type $optimade_zero_search__params_optimade_zero_28 = $mol_type_enforce<
 		ReturnType< $optimade_zero['search_params'] >
 		,
 		ReturnType< $optimade_zero_search['params'] >
@@ -4018,6 +4028,7 @@ declare namespace $ {
 		search_error( ): ReturnType< ReturnType< $optimade_zero['Search'] >['error'] >
 		count( ): string
 		Count( ): $mol_paragraph
+		search_page_tools( ): readonly(any)[]
 		Login_icon( ): $mol_icon_login
 		Account_icon( ): $mol_icon_account
 		login_icon( ): readonly(any)[]
@@ -4025,6 +4036,7 @@ declare namespace $ {
 		open_results_label( ): string
 		Open_results_icon( ): $mol_icon_arrow_right_bold
 		Open_results( ): $mol_link
+		clear_search( next?: any ): any
 		Search_input( ): $optimade_zero_search_input
 		arity( next?: string ): string
 		arity_dict( ): Record<string, any>
@@ -4041,6 +4053,8 @@ declare namespace $ {
 		Search_error( ): $mol_view
 		nothing_found( ): string
 		Search_nothing_found( ): $mol_view
+		start_typing( ): string
+		Search_start_typing( ): $mol_view
 		search_page_body( ): readonly(any)[]
 		Search_page( ): $mol_page
 		Results_page( ): $optimade_zero_entry_page
@@ -4058,6 +4072,8 @@ declare namespace $.$$ {
         pages(): ($.$optimade_zero_entry_page | $mol_page | $.$optimade_zero_user_page)[];
         count(): string;
         search_params(next?: $optimade_zero_search_params): $optimade_zero_search_params;
+        search_empty(): boolean;
+        search_page_tools(): $.$mol_paragraph[];
         search_page_body(): ($mol_view | $.$optimade_zero_search_input)[];
         arity_dict(): Record<string, string>;
         refinements(): ($mol_labeler | null)[];
@@ -4067,7 +4083,11 @@ declare namespace $.$$ {
         refinement_link_arg(obj: typeof $optimade_zero_search_refinement_item.Value): $optimade_zero_search_params;
         arity(next?: string): string;
         login_icon(): $mol_icon_account[];
+        clear_search(): void;
     }
+}
+
+declare namespace $ {
 }
 
 declare namespace $.$$ {

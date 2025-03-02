@@ -8515,12 +8515,25 @@ var $;
                 flex: {
                     direction: 'column',
                 },
+                gap: $mol_gap.space,
             },
             Suggest_formula: {
                 Paragraph: {
                     padding: 0,
                 },
             },
+            Tags: {
+                flexWrap: 'wrap',
+                gap: $mol_gap.space,
+            },
+            Tag: {
+                border: {
+                    width: '1px',
+                    style: 'solid',
+                    color: $mol_theme.line,
+                    radius: $mol_gap.round,
+                },
+            }
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -9992,6 +10005,9 @@ var $;
 			(obj.title) = () => ((this.count()));
 			return obj;
 		}
+		search_page_tools(){
+			return [(this.Count())];
+		}
 		Login_icon(){
 			const obj = new this.$.$mol_icon_login();
 			return obj;
@@ -10023,9 +10039,14 @@ var $;
 			(obj.sub) = () => ([(this.open_results_label()), (this.Open_results_icon())]);
 			return obj;
 		}
+		clear_search(next){
+			if(next !== undefined) return next;
+			return null;
+		}
 		Search_input(){
 			const obj = new this.$.$optimade_zero_search_input();
 			(obj.Search) = () => ((this.Search()));
+			(obj.clear) = (next) => ((this.clear_search(next)));
 			return obj;
 		}
 		arity(next){
@@ -10092,19 +10113,28 @@ var $;
 			(obj.sub) = () => ([(this.nothing_found())]);
 			return obj;
 		}
+		start_typing(){
+			return (this.$.$mol_locale.text("$optimade_zero_start_typing"));
+		}
+		Search_start_typing(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.start_typing())]);
+			return obj;
+		}
 		search_page_body(){
 			return [
 				(this.Search_input()), 
 				(this.Arity()), 
 				(this.Refinements()), 
 				(this.Search_error()), 
-				(this.Search_nothing_found())
+				(this.Search_nothing_found()), 
+				(this.Search_start_typing())
 			];
 		}
 		Search_page(){
 			const obj = new this.$.$mol_page();
 			(obj.title) = () => ("−273.15°C");
-			(obj.tools) = () => ([(this.Count())]);
+			(obj.tools) = () => ((this.search_page_tools()));
 			(obj.foot) = () => ([(this.Login()), (this.Open_results())]);
 			(obj.body) = () => ((this.search_page_body()));
 			return obj;
@@ -10144,6 +10174,7 @@ var $;
 	($mol_mem(($.$optimade_zero.prototype), "Login"));
 	($mol_mem(($.$optimade_zero.prototype), "Open_results_icon"));
 	($mol_mem(($.$optimade_zero.prototype), "Open_results"));
+	($mol_mem(($.$optimade_zero.prototype), "clear_search"));
 	($mol_mem(($.$optimade_zero.prototype), "Search_input"));
 	($mol_mem(($.$optimade_zero.prototype), "arity"));
 	($mol_mem(($.$optimade_zero.prototype), "Arity_switch"));
@@ -10153,6 +10184,7 @@ var $;
 	($mol_mem(($.$optimade_zero.prototype), "Refinements"));
 	($mol_mem(($.$optimade_zero.prototype), "Search_error"));
 	($mol_mem(($.$optimade_zero.prototype), "Search_nothing_found"));
+	($mol_mem(($.$optimade_zero.prototype), "Search_start_typing"));
 	($mol_mem(($.$optimade_zero.prototype), "Search_page"));
 	($mol_mem(($.$optimade_zero.prototype), "Results_page"));
 	($mol_mem(($.$optimade_zero.prototype), "User_page"));
@@ -10185,9 +10217,7 @@ var $;
                 const keys = Object.keys(this.Search().param_names());
                 if (next !== undefined) {
                     for (const key of keys) {
-                        if (!next[key])
-                            continue;
-                        this.$.$mol_state_arg.value(key, next[key]);
+                        this.$.$mol_state_arg.value(key, next[key] ?? null);
                     }
                     return next;
                 }
@@ -10200,18 +10230,27 @@ var $;
                 }
                 return params;
             }
+            search_empty() {
+                return Object.keys(this.search_params()).length === 0;
+            }
+            search_page_tools() {
+                return this.search_empty() ? [] : [this.Count()];
+            }
             search_page_body() {
-                if (this.search_error()) {
+                if (!this.search_empty() && this.search_error()) {
                     return [
                         this.Search_input(),
                         this.Search_error(),
                     ];
                 }
+                const arity = this.Search().arity().length;
+                const results = this.search_empty() ? 0 : this.Search().results().length;
                 return [
                     this.Search_input(),
-                    ...this.Search().arity().length > 0 ? [this.Arity()] : [],
-                    this.Refinements(),
-                    ...this.Search().results().length === 0 ? [this.Search_nothing_found()] : [],
+                    ...!this.search_empty() && arity > 0 ? [this.Arity()] : [],
+                    ...this.search_empty() ? [] : [this.Refinements()],
+                    ...!this.search_empty() && results === 0 ? [this.Search_nothing_found()] : [],
+                    ...this.search_empty() ? [this.Search_start_typing()] : [],
                 ];
             }
             arity_dict() {
@@ -10258,6 +10297,9 @@ var $;
             login_icon() {
                 return this.User().signed() ? [this.Account_icon()] : [this.Login_icon()];
             }
+            clear_search() {
+                this.search_params({});
+            }
         }
         __decorate([
             $mol_mem
@@ -10279,6 +10321,13 @@ var $;
         ], $optimade_zero.prototype, "arity", null);
         $$.$optimade_zero = $optimade_zero;
     })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("optimade/zero/zero.view.css", "[mol_labeler_content] {\n\tflex-wrap: wrap;\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -10309,6 +10358,10 @@ var $;
                 color: 'red',
             },
             Search_nothing_found: {
+                padding: '100px',
+                margin: 'auto',
+            },
+            Search_start_typing: {
                 padding: '100px',
                 margin: 'auto',
             },

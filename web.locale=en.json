@@ -11,6 +11,7 @@
 	"$optimade_zero_entry_page_title": "Showing {count} results",
 	"$optimade_zero_nothing_found": "Nothing found\t",
 	"$optimade_zero_open_results_label": "Open results",
+	"$optimade_zero_start_typing": "Start typing",
 	"$optimade_zero_user_page_Pass_recovery_link_title": "password recovery",
 	"$optimade_zero_user_page_check_email_label": "Please, check your inbox (and spam)",
 	"$optimade_zero_user_page_invalid_creds_label": "Invalid credentials",
