@@ -4956,6 +4956,17 @@ var $;
 "use strict";
 
 ;
+	($.$mol_icon_account) = class $mol_icon_account extends ($.$mol_icon) {
+		path(){
+			return "M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
 	($.$mol_link) = class $mol_link extends ($.$mol_view) {
 		uri_toggle(){
 			return "";
@@ -9124,7 +9135,7 @@ var $;
 		}
 		Close(){
 			const obj = new this.$.$mol_link();
-			(obj.arg) = () => ({"results": null});
+			(obj.arg) = () => ({"page": null});
 			(obj.sub) = () => ([(this.Close_icon())]);
 			return obj;
 		}
@@ -9422,6 +9433,503 @@ var $;
 })($ || ($ = {}));
 
 ;
+"use strict";
+var $;
+(function ($) {
+    const Rec = $mol_data_record;
+    const Str = $mol_data_string;
+    const Response = Rec({
+        name: Str,
+        sid: Str,
+    });
+    class $optimade_zero_user extends $mol_object {
+        uri() {
+            return 'https://api.mpds.io/v0/users';
+        }
+        sign_in(login, pass) {
+            const form = new FormData();
+            form.append('login', login);
+            form.append('pass', pass);
+            const res = this.$.$mol_fetch.json(`${this.uri()}/login`, { method: 'post', body: form });
+            const json = Response(res);
+            this.data(json);
+        }
+        sign_out() {
+            const form = new FormData();
+            form.append('sid', this.sid());
+            this.$.$mol_fetch.json(`${this.uri()}/logout`, { method: 'post', body: form });
+            this.data(null);
+        }
+        data(next) {
+            return this.$.$mol_state_local.value('user', next) ?? null;
+        }
+        name() {
+            return this.data()?.name ?? '';
+        }
+        sid() {
+            return this.data()?.sid ?? '';
+        }
+        signed() {
+            return !!this.data();
+        }
+    }
+    __decorate([
+        $mol_action
+    ], $optimade_zero_user.prototype, "sign_in", null);
+    __decorate([
+        $mol_action
+    ], $optimade_zero_user.prototype, "sign_out", null);
+    __decorate([
+        $mol_mem
+    ], $optimade_zero_user.prototype, "data", null);
+    $.$optimade_zero_user = $optimade_zero_user;
+})($ || ($ = {}));
+
+;
+	($.$mol_form_field) = class $mol_form_field extends ($.$mol_labeler) {
+		name(){
+			return "";
+		}
+		bid(){
+			return "";
+		}
+		Bid(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.bid())]);
+			return obj;
+		}
+		control(){
+			return null;
+		}
+		bids(){
+			return [];
+		}
+		label(){
+			return [(this.name()), (this.Bid())];
+		}
+		content(){
+			return [(this.control())];
+		}
+	};
+	($mol_mem(($.$mol_form_field.prototype), "Bid"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_form_field extends $.$mol_form_field {
+            bid() {
+                return this.bids().filter(Boolean)[0] ?? '';
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_form_field.prototype, "bid", null);
+        $$.$mol_form_field = $mol_form_field;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/form/field/field.view.css", "[mol_form_field] {\n\talign-items: stretch;\n}\n\n[mol_form_field_bid] {\n\tcolor: var(--mol_theme_focus);\n\tdisplay: inline-block;\n\ttext-shadow: 0 0;\n}\n\n[mol_form_field_content] {\n\tborder-radius: var(--mol_gap_round);\n}\n");
+})($ || ($ = {}));
+
+;
+	($.$mol_icon_eye) = class $mol_icon_eye extends ($.$mol_icon) {
+		path(){
+			return "M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z";
+		}
+	};
+
+
+;
+"use strict";
+
+;
+	($.$mol_check_icon) = class $mol_check_icon extends ($.$mol_check) {};
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/check/icon/icon.view.css", "[mol_check_icon]:where([mol_check_checked]) {\n\tcolor: var(--mol_theme_current);\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+;
+	($.$mol_password) = class $mol_password extends ($.$mol_view) {
+		hint(){
+			return "";
+		}
+		value(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		submit(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		enabled(){
+			return true;
+		}
+		Pass(){
+			const obj = new this.$.$mol_string();
+			(obj.type) = () => ((this.type()));
+			(obj.hint) = () => ((this.hint()));
+			(obj.value) = (next) => ((this.value(next)));
+			(obj.submit) = (next) => ((this.submit(next)));
+			(obj.enabled) = () => ((this.enabled()));
+			return obj;
+		}
+		checked(next){
+			if(next !== undefined) return next;
+			return true;
+		}
+		Show_icon(){
+			const obj = new this.$.$mol_icon_eye();
+			return obj;
+		}
+		Show(){
+			const obj = new this.$.$mol_check_icon();
+			(obj.checked) = (next) => ((this.checked(next)));
+			(obj.Icon) = () => ((this.Show_icon()));
+			return obj;
+		}
+		content(){
+			return [(this.Pass()), (this.Show())];
+		}
+		type(next){
+			if(next !== undefined) return next;
+			return "password";
+		}
+		sub(){
+			return (this.content());
+		}
+	};
+	($mol_mem(($.$mol_password.prototype), "value"));
+	($mol_mem(($.$mol_password.prototype), "submit"));
+	($mol_mem(($.$mol_password.prototype), "Pass"));
+	($mol_mem(($.$mol_password.prototype), "checked"));
+	($mol_mem(($.$mol_password.prototype), "Show_icon"));
+	($mol_mem(($.$mol_password.prototype), "Show"));
+	($mol_mem(($.$mol_password.prototype), "type"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_password extends $.$mol_password {
+            checked(next) {
+                this.type(next ? 'text' : 'password');
+                return next ?? false;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_password.prototype, "checked", null);
+        $$.$mol_password = $mol_password;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$mol_button_major) = class $mol_button_major extends ($.$mol_button_minor) {
+		theme(){
+			return "$mol_theme_base";
+		}
+	};
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major] {\n\tbackground-color: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+;
+	($.$mol_form) = class $mol_form extends ($.$mol_list) {
+		keydown(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		form_fields(){
+			return [];
+		}
+		body(){
+			return (this.form_fields());
+		}
+		Body(){
+			const obj = new this.$.$mol_list();
+			(obj.sub) = () => ((this.body()));
+			return obj;
+		}
+		buttons(){
+			return [];
+		}
+		foot(){
+			return (this.buttons());
+		}
+		Foot(){
+			const obj = new this.$.$mol_row();
+			(obj.sub) = () => ((this.foot()));
+			return obj;
+		}
+		submit_allowed(){
+			return true;
+		}
+		submit_blocked(){
+			return false;
+		}
+		event(){
+			return {...(super.event()), "keydown": (next) => (this.keydown(next))};
+		}
+		submit(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		rows(){
+			return [(this.Body()), (this.Foot())];
+		}
+	};
+	($mol_mem(($.$mol_form.prototype), "keydown"));
+	($mol_mem(($.$mol_form.prototype), "Body"));
+	($mol_mem(($.$mol_form.prototype), "Foot"));
+	($mol_mem(($.$mol_form.prototype), "submit"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_form extends $.$mol_form {
+            form_fields() {
+                return [...this.view_find(view => view instanceof $mol_form_field)]
+                    .map(path => path[path.length - 1]);
+            }
+            submit_allowed() {
+                return this.form_fields().every(field => !field.bid());
+            }
+            submit_blocked() {
+                return !this.submit_allowed();
+            }
+            keydown(next) {
+                if (next.ctrlKey && next.keyCode === $mol_keyboard_code.enter && !this.submit_blocked())
+                    this.submit(event);
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_form.prototype, "form_fields", null);
+        __decorate([
+            $mol_mem
+        ], $mol_form.prototype, "submit_allowed", null);
+        $$.$mol_form = $mol_form;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/form/form.view.css", "[mol_form] {\r\n\tgap: var(--mol_gap_block);\r\n}\r\n\r\n[mol_form_body] {\r\n\tgap: var(--mol_gap_block);\r\n}");
+})($ || ($ = {}));
+
+;
+	($.$optimade_zero_user_page) = class $optimade_zero_user_page extends ($.$mol_page) {
+		Close_icon(){
+			const obj = new this.$.$mol_icon_close();
+			return obj;
+		}
+		Close(){
+			const obj = new this.$.$mol_link();
+			(obj.arg) = () => ({"page": null});
+			(obj.sub) = () => ([(this.Close_icon())]);
+			return obj;
+		}
+		login_label(){
+			return (this.$.$mol_locale.text("$optimade_zero_user_page_login_label"));
+		}
+		login_bid(){
+			return "";
+		}
+		login(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		Login_control(){
+			const obj = new this.$.$mol_string();
+			(obj.value) = (next) => ((this.login(next)));
+			return obj;
+		}
+		Login_field(){
+			const obj = new this.$.$mol_form_field();
+			(obj.name) = () => ((this.login_label()));
+			(obj.bid) = () => ((this.login_bid()));
+			(obj.control) = () => ((this.Login_control()));
+			return obj;
+		}
+		pass_label(){
+			return (this.$.$mol_locale.text("$optimade_zero_user_page_pass_label"));
+		}
+		pass_bid(){
+			return "";
+		}
+		pass(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		Pass_control(){
+			const obj = new this.$.$mol_password();
+			(obj.value) = (next) => ((this.pass(next)));
+			(obj.type) = () => ("password");
+			return obj;
+		}
+		Pass_field(){
+			const obj = new this.$.$mol_form_field();
+			(obj.name) = () => ((this.pass_label()));
+			(obj.bid) = () => ((this.pass_bid()));
+			(obj.control) = () => ((this.Pass_control()));
+			return obj;
+		}
+		sign_in_label(){
+			return (this.$.$mol_locale.text("$optimade_zero_user_page_sign_in_label"));
+		}
+		sign_in(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Sign_in_button(){
+			const obj = new this.$.$mol_button_major();
+			(obj.title) = () => ((this.sign_in_label()));
+			(obj.click) = (next) => ((this.sign_in(next)));
+			return obj;
+		}
+		Login_form(){
+			const obj = new this.$.$mol_form();
+			(obj.form_fields) = () => ([(this.Login_field()), (this.Pass_field())]);
+			(obj.buttons) = () => ([(this.Sign_in_button())]);
+			return obj;
+		}
+		sign_out_label(){
+			return (this.$.$mol_locale.text("$optimade_zero_user_page_sign_out_label"));
+		}
+		sign_out(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Sign_out_button(){
+			const obj = new this.$.$mol_button_major();
+			(obj.title) = () => ((this.sign_out_label()));
+			(obj.click) = (next) => ((this.sign_out(next)));
+			return obj;
+		}
+		Profile(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.Sign_out_button())]);
+			return obj;
+		}
+		User(){
+			const obj = new this.$.$optimade_zero_user();
+			return obj;
+		}
+		welcome_label(){
+			return (this.$.$mol_locale.text("$optimade_zero_user_page_welcome_label"));
+		}
+		tools(){
+			return [(this.Close())];
+		}
+		body(){
+			return [(this.Login_form()), (this.Profile())];
+		}
+	};
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Close_icon"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Close"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "login"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Login_control"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Login_field"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "pass"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Pass_control"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Pass_field"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "sign_in"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Sign_in_button"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Login_form"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "sign_out"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Sign_out_button"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Profile"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "User"));
+
+
+;
+"use strict";
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $optimade_zero_user_page extends $.$optimade_zero_user_page {
+            title() {
+                return this.User().signed()
+                    ? this.welcome_label().replace('{name}', this.User().name())
+                    : this.sign_in_label();
+            }
+            body() {
+                return this.User().signed() ? [this.Profile()] : [this.Login_form()];
+            }
+            sign_in() {
+                this.User().sign_in(this.login(), this.pass());
+                this.login('');
+                this.pass('');
+            }
+            sign_out() {
+                this.User().sign_out();
+            }
+        }
+        $$.$optimade_zero_user_page = $optimade_zero_user_page;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($optimade_zero_user_page, {
+            Pass_control: {
+                flex: 'auto',
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
 	($.$optimade_zero) = class $optimade_zero extends ($.$mol_book2) {
 		search_params(next){
 			if(next !== undefined) return next;
@@ -9442,10 +9950,18 @@ var $;
 			const obj = new this.$.$mol_icon_login();
 			return obj;
 		}
+		Account_icon(){
+			const obj = new this.$.$mol_icon_account();
+			return obj;
+		}
+		login_icon(){
+			return [(this.Login_icon()), (this.Account_icon())];
+		}
 		Login(){
 			const obj = new this.$.$mol_link();
-			(obj.arg) = () => ({"login": ""});
-			(obj.sub) = () => ([(this.Login_icon())]);
+			(obj.arg) = () => ({"page": "user"});
+			(obj.sub) = () => ((this.login_icon()));
+			(obj.hint) = () => ("Login");
 			return obj;
 		}
 		open_results_label(){
@@ -9457,7 +9973,7 @@ var $;
 		}
 		Open_results(){
 			const obj = new this.$.$mol_link();
-			(obj.arg) = () => ({"results": ""});
+			(obj.arg) = () => ({"page": "results"});
 			(obj.sub) = () => ([(this.open_results_label()), (this.Open_results_icon())]);
 			return obj;
 		}
@@ -9552,18 +10068,32 @@ var $;
 			(obj.Search) = () => ((this.Search()));
 			return obj;
 		}
+		User_page(){
+			const obj = new this.$.$optimade_zero_user_page();
+			(obj.User) = () => ((this.User()));
+			return obj;
+		}
 		Search(){
 			const obj = new this.$.$optimade_zero_search();
 			(obj.params) = (next) => ((this.search_params(next)));
 			return obj;
 		}
+		User(){
+			const obj = new this.$.$optimade_zero_user();
+			return obj;
+		}
 		pages(){
-			return [(this.Search_page()), (this.Results_page())];
+			return [
+				(this.Search_page()), 
+				(this.Results_page()), 
+				(this.User_page())
+			];
 		}
 	};
 	($mol_mem(($.$optimade_zero.prototype), "search_params"));
 	($mol_mem(($.$optimade_zero.prototype), "Count"));
 	($mol_mem(($.$optimade_zero.prototype), "Login_icon"));
+	($mol_mem(($.$optimade_zero.prototype), "Account_icon"));
 	($mol_mem(($.$optimade_zero.prototype), "Login"));
 	($mol_mem(($.$optimade_zero.prototype), "Open_results_icon"));
 	($mol_mem(($.$optimade_zero.prototype), "Open_results"));
@@ -9578,7 +10108,9 @@ var $;
 	($mol_mem(($.$optimade_zero.prototype), "Search_nothing_found"));
 	($mol_mem(($.$optimade_zero.prototype), "Search_page"));
 	($mol_mem(($.$optimade_zero.prototype), "Results_page"));
+	($mol_mem(($.$optimade_zero.prototype), "User_page"));
 	($mol_mem(($.$optimade_zero.prototype), "Search"));
+	($mol_mem(($.$optimade_zero.prototype), "User"));
 
 
 ;
@@ -9594,7 +10126,8 @@ var $;
             pages() {
                 return [
                     this.Search_page(),
-                    ...this.$.$mol_state_arg.value('results') === '' ? [this.Results_page()] : [],
+                    ...this.$.$mol_state_arg.value('page') === 'results' ? [this.Results_page()] : [],
+                    ...this.$.$mol_state_arg.value('page') === 'user' ? [this.User_page()] : [],
                 ];
             }
             count() {
@@ -9659,6 +10192,9 @@ var $;
                 }
                 return next ?? '';
             }
+            login_icon() {
+                return this.User().signed() ? [this.Account_icon()] : [this.Login_icon()];
+            }
         }
         __decorate([
             $mol_mem
@@ -9697,6 +10233,11 @@ var $;
             Results_page: {
                 flex: {
                     basis: '40rem',
+                },
+            },
+            User_page: {
+                flex: {
+                    basis: '30rem',
                 },
             },
             Search_error: {

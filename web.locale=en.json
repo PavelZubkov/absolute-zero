@@ -10,5 +10,10 @@
 	"$optimade_zero_entry_page_Thumbs_label_title": "Thumbs",
 	"$optimade_zero_entry_page_title": "Showing {count} results",
 	"$optimade_zero_nothing_found": "Nothing found\t",
-	"$optimade_zero_open_results_label": "Open results"
+	"$optimade_zero_open_results_label": "Open results",
+	"$optimade_zero_user_page_login_label": "Login",
+	"$optimade_zero_user_page_pass_label": "Password",
+	"$optimade_zero_user_page_sign_in_label": "Sign in",
+	"$optimade_zero_user_page_sign_out_label": "Sign out",
+	"$optimade_zero_user_page_welcome_label": "Hi, {name}!"
 }
