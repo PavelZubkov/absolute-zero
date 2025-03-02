@@ -9528,7 +9528,7 @@ var $;
                 return super.count().replace('{count}', `${count}`);
             }
             search_params(next) {
-                return this.$.$mol_state_arg.dict(next) ?? {};
+                return this.$.$mol_state_local.value('search_params', next) ?? {};
             }
             search_page_body() {
                 if (this.search_error()) {
