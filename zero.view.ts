@@ -19,9 +19,26 @@ namespace $.$$ {
 
 		@ $mol_mem
 		search_params( next?: $optimade_zero_search_params ): $optimade_zero_search_params {
-			// conflict with other url params
+			// depend from other url params
 			// return this.$.$mol_state_arg.dict( next ) ?? {}
-			return this.$.$mol_state_local.value('search_params', next) ?? {}
+			const keys = Object.keys(this.Search().param_names()) as (keyof $optimade_zero_search_params)[]
+
+			if (next !== undefined) {
+				for (const key of keys) {
+					if (!next[key]) continue 
+					this.$.$mol_state_arg.value(key, next[key])
+				}
+				return next
+			}
+
+			const params = {} as $optimade_zero_search_params
+			for (const key of keys) {
+				const val = this.$.$mol_state_arg.value(key)
+				if (!val) continue
+				params[key] = val
+			}
+
+			return params
 		}
 
 		search_page_body() {
