@@ -548,6 +548,7 @@ $mol_form $mol_list
 $optimade_zero_user_page $mol_page
 	User $optimade_zero_user
 	welcome_label @ \Hi, {name}!
+	invalid_creds_label @ \Invalid credentials
 	tools /
 		<= Close $mol_link
 			arg * page null
@@ -570,11 +571,29 @@ $optimade_zero_user_page $mol_page
 				<= Sign_in_button $mol_button_major
 					title <= sign_in_label @ \Sign in
 					click? <=> sign_in? null
+				<= Pass_recovery_link $mol_link
+					arg * recovery \
+					title @ \password recovery
+		<= Pass_recovery $mol_form
+			form_fields /
+				<= Login_field $mol_form_field
+					name <= login_label @ \Login
+					bid <= login_bid \
+					control <= Login_control $mol_string
+						value? <=> login? \
+			buttons /
+				<= Send_link_button $mol_button_major
+					title <= send_link_label @ \Send link
+					click? <=> send_link? null
+				<= Pass_recovery_link
 		<= Profile $mol_view
 			sub /
 				<= Sign_out_button $mol_button_major
 					title <= sign_out_label @ \Sign out
 					click? <=> sign_out? null
+		<= Check_email $mol_view
+			sub /
+				<= check_email_label @ \Please, check your inbox (and spam)
 
 $optimade_zero $mol_book2
 	Search $optimade_zero_search

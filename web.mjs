@@ -8806,6 +8806,11 @@ var $;
             this.$.$mol_fetch.json(`${this.uri()}/logout`, { method: 'post', body: form });
             this.data(null);
         }
+        pass_recovery(login) {
+            const form = new FormData();
+            form.append('login', login);
+            this.$.$mol_fetch.json(`${this.uri()}/lost_password`, { method: 'post', body: form });
+        }
         data(next) {
             return this.$.$mol_state_local.value('user', next) ?? null;
         }
@@ -8825,6 +8830,9 @@ var $;
     __decorate([
         $mol_action
     ], $optimade_zero_user.prototype, "sign_out", null);
+    __decorate([
+        $mol_action
+    ], $optimade_zero_user.prototype, "pass_recovery", null);
     __decorate([
         $mol_mem
     ], $optimade_zero_user.prototype, "data", null);
@@ -9175,10 +9183,35 @@ var $;
 			(obj.click) = (next) => ((this.sign_in(next)));
 			return obj;
 		}
+		Pass_recovery_link(){
+			const obj = new this.$.$mol_link();
+			(obj.arg) = () => ({"recovery": ""});
+			(obj.title) = () => ((this.$.$mol_locale.text("$optimade_zero_user_page_Pass_recovery_link_title")));
+			return obj;
+		}
 		Login_form(){
 			const obj = new this.$.$mol_form();
 			(obj.form_fields) = () => ([(this.Login_field()), (this.Pass_field())]);
-			(obj.buttons) = () => ([(this.Sign_in_button())]);
+			(obj.buttons) = () => ([(this.Sign_in_button()), (this.Pass_recovery_link())]);
+			return obj;
+		}
+		send_link_label(){
+			return (this.$.$mol_locale.text("$optimade_zero_user_page_send_link_label"));
+		}
+		send_link(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Send_link_button(){
+			const obj = new this.$.$mol_button_major();
+			(obj.title) = () => ((this.send_link_label()));
+			(obj.click) = (next) => ((this.send_link(next)));
+			return obj;
+		}
+		Pass_recovery(){
+			const obj = new this.$.$mol_form();
+			(obj.form_fields) = () => ([(this.Login_field())]);
+			(obj.buttons) = () => ([(this.Send_link_button()), (this.Pass_recovery_link())]);
 			return obj;
 		}
 		sign_out_label(){
@@ -9199,6 +9232,14 @@ var $;
 			(obj.sub) = () => ([(this.Sign_out_button())]);
 			return obj;
 		}
+		check_email_label(){
+			return (this.$.$mol_locale.text("$optimade_zero_user_page_check_email_label"));
+		}
+		Check_email(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.check_email_label())]);
+			return obj;
+		}
 		User(){
 			const obj = new this.$.$optimade_zero_user();
 			return obj;
@@ -9206,11 +9247,19 @@ var $;
 		welcome_label(){
 			return (this.$.$mol_locale.text("$optimade_zero_user_page_welcome_label"));
 		}
+		invalid_creds_label(){
+			return (this.$.$mol_locale.text("$optimade_zero_user_page_invalid_creds_label"));
+		}
 		tools(){
 			return [(this.Close())];
 		}
 		body(){
-			return [(this.Login_form()), (this.Profile())];
+			return [
+				(this.Login_form()), 
+				(this.Pass_recovery()), 
+				(this.Profile()), 
+				(this.Check_email())
+			];
 		}
 	};
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Close_icon"));
@@ -9223,10 +9272,15 @@ var $;
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Pass_field"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "sign_in"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Sign_in_button"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Pass_recovery_link"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Login_form"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "send_link"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Send_link_button"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Pass_recovery"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "sign_out"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Sign_out_button"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Profile"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Check_email"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "User"));
 
 
@@ -9246,15 +9300,26 @@ var $;
                     : this.sign_in_label();
             }
             body() {
-                return this.User().signed() ? [this.Profile()] : [this.Login_form()];
+                if (this.User().signed())
+                    return [this.Profile()];
+                const rec = this.$.$mol_state_arg.value('recovery');
+                return [
+                    ...rec === 'check' ? [this.Check_email()] : [],
+                    ...rec === '' ? [this.Pass_recovery()] : [this.Login_form()],
+                ];
             }
             sign_in() {
                 this.User().sign_in(this.login(), this.pass());
                 this.login('');
                 this.pass('');
+                this.$.$mol_state_arg.value('recovery', null);
             }
             sign_out() {
                 this.User().sign_out();
+            }
+            send_link() {
+                this.User().pass_recovery(this.login());
+                this.$.$mol_state_arg.value('recovery', 'check');
             }
         }
         $$.$optimade_zero_user_page = $optimade_zero_user_page;
@@ -9271,6 +9336,10 @@ var $;
             Pass_control: {
                 flex: 'auto',
             },
+            Check_email: {
+                padding: $mol_gap.block,
+                color: $mol_theme.special,
+            }
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

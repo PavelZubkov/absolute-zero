@@ -3562,6 +3562,7 @@ declare namespace $ {
         uri(): string;
         sign_in(login: string, pass: string): void;
         sign_out(): void;
+        pass_recovery(login: string): void;
         data(next?: typeof Response.Value | null): Readonly<{
             name: string;
             sid: string;
@@ -3807,27 +3808,64 @@ declare namespace $ {
 		,
 		ReturnType< $mol_button_major['click'] >
 	>
-	type $mol_form__form_fields_optimade_zero_user_page_14 = $mol_type_enforce<
+	type $mol_link__arg_optimade_zero_user_page_14 = $mol_type_enforce<
+		({ 
+			'recovery': string,
+		}) 
+		,
+		ReturnType< $mol_link['arg'] >
+	>
+	type $mol_link__title_optimade_zero_user_page_15 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_link['title'] >
+	>
+	type $mol_form__form_fields_optimade_zero_user_page_16 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_form['form_fields'] >
 	>
-	type $mol_form__buttons_optimade_zero_user_page_15 = $mol_type_enforce<
+	type $mol_form__buttons_optimade_zero_user_page_17 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_form['buttons'] >
 	>
-	type $mol_button_major__title_optimade_zero_user_page_16 = $mol_type_enforce<
+	type $mol_button_major__title_optimade_zero_user_page_18 = $mol_type_enforce<
+		ReturnType< $optimade_zero_user_page['send_link_label'] >
+		,
+		ReturnType< $mol_button_major['title'] >
+	>
+	type $mol_button_major__click_optimade_zero_user_page_19 = $mol_type_enforce<
+		ReturnType< $optimade_zero_user_page['send_link'] >
+		,
+		ReturnType< $mol_button_major['click'] >
+	>
+	type $mol_form__form_fields_optimade_zero_user_page_20 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_form['form_fields'] >
+	>
+	type $mol_form__buttons_optimade_zero_user_page_21 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_form['buttons'] >
+	>
+	type $mol_button_major__title_optimade_zero_user_page_22 = $mol_type_enforce<
 		ReturnType< $optimade_zero_user_page['sign_out_label'] >
 		,
 		ReturnType< $mol_button_major['title'] >
 	>
-	type $mol_button_major__click_optimade_zero_user_page_17 = $mol_type_enforce<
+	type $mol_button_major__click_optimade_zero_user_page_23 = $mol_type_enforce<
 		ReturnType< $optimade_zero_user_page['sign_out'] >
 		,
 		ReturnType< $mol_button_major['click'] >
 	>
-	type $mol_view__sub_optimade_zero_user_page_18 = $mol_type_enforce<
+	type $mol_view__sub_optimade_zero_user_page_24 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_optimade_zero_user_page_25 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
@@ -3848,13 +3886,21 @@ declare namespace $ {
 		sign_in_label( ): string
 		sign_in( next?: any ): any
 		Sign_in_button( ): $mol_button_major
+		Pass_recovery_link( ): $mol_link
 		Login_form( ): $mol_form
+		send_link_label( ): string
+		send_link( next?: any ): any
+		Send_link_button( ): $mol_button_major
+		Pass_recovery( ): $mol_form
 		sign_out_label( ): string
 		sign_out( next?: any ): any
 		Sign_out_button( ): $mol_button_major
 		Profile( ): $mol_view
+		check_email_label( ): string
+		Check_email( ): $mol_view
 		User( ): $optimade_zero_user
 		welcome_label( ): string
+		invalid_creds_label( ): string
 		tools( ): readonly(any)[]
 		body( ): readonly(any)[]
 	}
@@ -3868,6 +3914,7 @@ declare namespace $.$$ {
         body(): $mol_view[];
         sign_in(): void;
         sign_out(): void;
+        send_link(): void;
     }
 }
 
