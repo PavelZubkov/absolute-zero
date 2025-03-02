@@ -2,15 +2,16 @@ namespace $.$$ {
 
 	export class $optimade_zero extends $.$optimade_zero {
 
-		pages() {
-
+		search_page_body() {
 			return [
-				... super.pages(),
+				this.Search_input(),
+				this.search_error() ? this.Search_error() : this.Search_results(),
+				!this.search_error() && this.Search().results().length === 0 ? this.Search_nothing_found() : null,
 			]
 		}
 
 		search_results() {
-			if (!this.search()) return []
+			if (!this.Search().search_params_labels().length) return []
 
 			return this.Search().results().map(obj => this.Item(obj))
 		}

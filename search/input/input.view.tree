@@ -1,0 +1,14 @@
+$optimade_zero_search_input $mol_search
+	Search $optimade_zero_search
+	Suggest_formula* $mol_html_view
+		html <= suggest_html_label* <= suggest_label*
+	anchor_content /
+		<= Input $mol_view
+			sub /
+				<= Query
+				<= Clear
+		<= Tags $mol_view
+			sub <= tags /
+				<= Tag*0 $optimade_zero_search_tag
+					close? <=> tag_drop*? null
+					label <= tag_label* \

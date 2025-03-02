@@ -22,6 +22,17 @@ namespace $.$$ {
 		Property: {
 			padding: $mol_gap.text,
 		},
+
+		Search_error: {
+			padding: '100px',
+			margin: 'auto',
+			color: 'red',
+		},
+
+		Search_nothing_found: {
+			padding: '100px',
+			margin: 'auto',
+		}
 	} )
 
 }

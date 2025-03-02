@@ -1,0 +1,7 @@
+$optimade_zero_search_tag $mol_view
+	sub /
+		<= Label $mol_html_view
+			html <= html_label <= label \
+		<= Close $mol_button_minor
+			click? <=> close? null
+			sub / <= Close_icon $mol_icon_close

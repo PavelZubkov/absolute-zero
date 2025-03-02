@@ -1,14 +1,17 @@
 $optimade_zero $mol_book2
 	Search $optimade_zero_search
 		search? => search?
+		error => search_error
 	pages /
 		<= Search_page $mol_page
 			title \−273.15°C
-			sub /
-				<= Search_head $mol_list
-					rows /
-						<= Search_input $mol_string
-							value? <=> search?
+			body <= search_page_body /
+				<= Search_input $optimade_zero_search_input
+					Search <= Search
+				<= Search_error $mol_view
+					sub / <= search_error
+				<= Search_nothing_found $mol_view
+					sub / <= nothing_found @ \Nothing found
 				<= Search_results $mol_list
 					rows <= search_results /
 						<= Item*0 $mol_row
