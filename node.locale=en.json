@@ -1,0 +1,14 @@
+{
+	"$mol_search_Clear_hint": "Clear",
+	"$mol_search_hint": "Search...",
+	"$optimade_zero_Arity_title": "Arity",
+	"$optimade_zero_count": "Estimated results count {count}",
+	"$optimade_zero_entry_page_Bib_label_title": "Bib",
+	"$optimade_zero_entry_page_Formula_label_title": "Formula",
+	"$optimade_zero_entry_page_Id_label_title": "Entry",
+	"$optimade_zero_entry_page_Property_label_title": "Property",
+	"$optimade_zero_entry_page_Thumbs_label_title": "Thumbs",
+	"$optimade_zero_entry_page_title": "Showing {count} results",
+	"$optimade_zero_nothing_found": "Nothing found\t",
+	"$optimade_zero_open_results_label": "Open results"
+}
