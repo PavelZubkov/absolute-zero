@@ -8,6 +8,7 @@ namespace $.$$ {
 			flex: {
 				direction: 'column',
 			},
+			gap: $mol_gap.space,
 		},
 
 		Suggest_formula: {
@@ -16,6 +17,19 @@ namespace $.$$ {
 			},
 		},
 		
+		Tags: {
+			flexWrap: 'wrap',
+			gap: $mol_gap.space,
+		},
+
+		Tag: {
+			border: {
+				width: '1px',
+				style: 'solid',
+				color: $mol_theme.line,
+				radius: $mol_gap.round,
+			},
+		}
 	} )
 	
 }

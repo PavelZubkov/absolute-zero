@@ -6,7 +6,7 @@ $optimade_zero $mol_book2
 	pages /
 		<= Search_page $mol_page
 			title \−273.15°C
-			tools /
+			tools <= search_page_tools /
 				<= Count $mol_paragraph
 					title <= count @ \Estimated results count {count}
 			foot /
@@ -24,6 +24,7 @@ $optimade_zero $mol_book2
 			body <= search_page_body /
 				<= Search_input $optimade_zero_search_input
 					Search <= Search
+					clear? <=> clear_search? null
 				<= Arity $mol_labeler
 					title @ \Arity
 					content /
@@ -42,6 +43,8 @@ $optimade_zero $mol_book2
 					sub / <= search_error
 				<= Search_nothing_found $mol_view
 					sub / <= nothing_found @ \Nothing found	
+				<= Search_start_typing $mol_view
+					sub / <= start_typing @ \Start typing
 		<= Results_page $optimade_zero_entry_page 
 			Search <= Search
 			User <= User
