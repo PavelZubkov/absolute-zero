@@ -22,6 +22,6 @@ jobs:
         package: 'optimade/zero'
     
     - uses: hyoo-ru/gh-deploy@v4.4.1
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       with:
         folder: 'optimade/zero/-'
