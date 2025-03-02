@@ -8,17 +8,30 @@ namespace $.$$ {
 		}
 
 		body() {
-			return this.User().signed() ? [this.Profile()] : [this.Login_form()]
+			if (this.User().signed()) return [this.Profile()]
+
+			const rec = this.$.$mol_state_arg.value('recovery')
+
+			return [
+				... rec === 'check' ? [this.Check_email()] : [],
+				... rec === '' ? [this.Pass_recovery()] : [this.Login_form()],
+			]
 		}
 
 		sign_in() {
 			this.User().sign_in(this.login(), this.pass())
 			this.login('')
 			this.pass('')
+			this.$.$mol_state_arg.value('recovery', null)
 		}
 
 		sign_out() {
 			this.User().sign_out()
+		}
+
+		send_link() {
+			this.User().pass_recovery(this.login())
+			this.$.$mol_state_arg.value('recovery', 'check')
 		}
 		
 	}

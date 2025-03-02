@@ -5,6 +5,11 @@ namespace $.$$ {
 		Pass_control: {
 			flex: 'auto',
 		},
+
+		Check_email: {
+			padding: $mol_gap.block,
+			color: $mol_theme.special,
+		}
 		
 	} )
 	

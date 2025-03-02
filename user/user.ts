@@ -33,6 +33,13 @@ namespace $ {
 			this.data(null)
 		}
 
+		@ $mol_action
+		pass_recovery(login: string) {
+			const form = new FormData()
+			form.append('login', login)
+			this.$.$mol_fetch.json(`${this.uri()}/lost_password`, { method: 'post', body: form })
+		}
+
 		@ $mol_mem
 		data( next?: typeof Response.Value | null ) {
 			return this.$.$mol_state_local.value('user', next) ?? null
