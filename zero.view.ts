@@ -122,5 +122,17 @@ namespace $.$$ {
 			search.param_add(obj.facet, obj.value)
 			return search.params()
 		}
+
+		@$mol_mem
+		arity( next?: string ) {
+			if (next !== undefined) {
+				const reset = Object.values(this.Search().arity_names())
+				reset.forEach(val => this.Search().param_drop('classes', val))
+
+				this.Search().param_add('classes', next)
+			}
+
+			return next ?? ''
+		}
 	}
 }
