@@ -6,12 +6,10 @@ namespace $.$$ {
 
 		@$mol_mem_key
 		suggests_request( key: string ) {
-			console.log('suggests_request', `"${key}"`)
 			return this.Search().suggests( key )
 		}
 
 		suggests() {
-			console.log('suggests', `"${this.query()}"`)
 			if( !this.query().trim() ) return []
 
 			this.$.$mol_wait_timeout( 1000 )
@@ -21,7 +19,6 @@ namespace $.$$ {
 		}
 
 		suggest_select( query: string, event?: MouseEvent ) {
-			console.log('suggest_select', `"${query}"`)
 			const suggest = this.suggests_request(this.query()).find(obj => obj.label === query)
 			if (!suggest) throw new Error('OPS')
 

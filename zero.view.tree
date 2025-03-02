@@ -7,7 +7,7 @@ $optimade_zero $mol_book2
 			title \−273.15°C
 			tools /
 				<= Count $mol_paragraph
-					title / <= count @ \Estimated results count {count}
+					title <= count @ \Estimated results count {count}
 			foot /
 				<= Login $mol_link
 					arg * login \

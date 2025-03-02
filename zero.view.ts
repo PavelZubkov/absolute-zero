@@ -18,7 +18,6 @@ namespace $.$$ {
 
 		@ $mol_mem
 		search_params( next?: $optimade_zero_search_params ): $optimade_zero_search_params {
-			console.log('1231231')
 			return this.$.$mol_state_arg.dict( next ) ?? {}
 		}
 
