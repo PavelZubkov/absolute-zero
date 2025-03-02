@@ -10173,7 +10173,23 @@ var $;
                 return super.count().replace('{count}', `${count}`);
             }
             search_params(next) {
-                return this.$.$mol_state_local.value('search_params', next) ?? {};
+                const keys = Object.keys(this.Search().param_names());
+                if (next !== undefined) {
+                    for (const key of keys) {
+                        if (!next[key])
+                            continue;
+                        this.$.$mol_state_arg.value(key, next[key]);
+                    }
+                    return next;
+                }
+                const params = {};
+                for (const key of keys) {
+                    const val = this.$.$mol_state_arg.value(key);
+                    if (!val)
+                        continue;
+                    params[key] = val;
+                }
+                return params;
             }
             search_page_body() {
                 if (this.search_error()) {
