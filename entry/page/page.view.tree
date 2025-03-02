@@ -4,7 +4,7 @@ $optimade_zero_entry_page $mol_page
 	tools /
 		<= Close $mol_link
 			arg * 
-				results null
+				page null
 			sub / <= Close_icon $mol_icon_close
 	body /
 		<= Search_results $mol_list

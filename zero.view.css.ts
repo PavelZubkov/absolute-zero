@@ -14,6 +14,12 @@ namespace $.$$ {
 			},
 		},
 
+		User_page: {
+			flex: {
+				basis: '30rem',
+			},
+		},
+
 		Search_error: {
 			padding: '100px',
 			margin: 'auto',

@@ -6,7 +6,8 @@ namespace $.$$ {
 		pages() {
 			return [
 				this.Search_page(),
-				... this.$.$mol_state_arg.value('results') === '' ? [this.Results_page()] : [],
+				... this.$.$mol_state_arg.value('page') === 'results' ? [this.Results_page()] : [],
+				... this.$.$mol_state_arg.value('page') === 'user' ? [this.User_page()] : [],
 			]
 		}
 
@@ -89,6 +90,10 @@ namespace $.$$ {
 			}
 
 			return next ?? ''
+		}
+
+		login_icon() {
+			return this.User().signed() ? [this.Account_icon()] : [this.Login_icon()]
 		}
 	}
 }

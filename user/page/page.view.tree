@@ -1,0 +1,30 @@
+$optimade_zero_user_page $mol_page
+	User $optimade_zero_user
+	welcome_label @ \Hi, {name}!
+	tools /
+		<= Close $mol_link
+			arg * page null
+			sub / <= Close_icon $mol_icon_close
+	body /
+		<= Login_form $mol_form
+			form_fields /
+				<= Login_field $mol_form_field
+					name <= login_label @ \Login
+					bid <= login_bid \
+					control <= Login_control $mol_string
+						value? <=> login? \
+				<= Pass_field $mol_form_field
+					name <= pass_label @ \Password
+					bid <= pass_bid \
+					control <= Pass_control $mol_password
+						value? <=> pass? \
+						type \password
+			buttons /
+				<= Sign_in_button $mol_button_major
+					title <= sign_in_label @ \Sign in
+					click? <=> sign_in? null
+		<= Profile $mol_view
+			sub /
+				<= Sign_out_button $mol_button_major
+					title <= sign_out_label @ \Sign out
+					click? <=> sign_out? null
