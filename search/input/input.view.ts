@@ -1,6 +1,6 @@
 namespace $.$$ {
 
-	type Search_params_label = ReturnType<$optimade_zero_search['search_params_labels']>[number]
+	type Search_params_label = ReturnType<$optimade_zero_search['params_labels']>[number]
 
 	export class $optimade_zero_search_input extends $.$optimade_zero_search_input {
 
@@ -25,14 +25,14 @@ namespace $.$$ {
 			const suggest = this.suggests_request(this.query()).find(obj => obj.label === query)
 			if (!suggest) throw new Error('OPS')
 
-			this.Search().search_param_add(suggest.facet, suggest.label)
+			this.Search().param_add(suggest.facet, suggest.label)
 			this.query('')
 			this.Query().focused( true )
 		}
 
 		@ $mol_mem
 		tags() {
-			return this.Search().search_params_labels().map(obj => this.Tag(obj))
+			return this.Search().params_labels().map(obj => this.Tag(obj))
 		}
 
 		tag_label(obj: Search_params_label) {
@@ -40,7 +40,7 @@ namespace $.$$ {
 		}
 
 		tag_drop(obj: Search_params_label) {
-			this.Search().search_param_drop(obj.facet, obj.label)
+			this.Search().param_drop(obj.facet, obj.label)
 		}
 
 		suggest_html_label( suggest_label: string ) {

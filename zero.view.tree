@@ -1,6 +1,6 @@
 $optimade_zero $mol_book2
 	Search $optimade_zero_search
-		search? => search?
+		params? <=> search_params? *
 		error => search_error
 	pages /
 		<= Search_page $mol_page
@@ -8,6 +8,20 @@ $optimade_zero $mol_book2
 			body <= search_page_body /
 				<= Search_input $optimade_zero_search_input
 					Search <= Search
+				<= Arity $mol_labeler
+					title @ \Arity
+					content /
+						<= Arity_switch $mol_switch
+							value? <=> arity? \
+							options <= arity_dict *
+				<= Refinements $mol_list
+					rows <= refinements /
+						<= Refinement*0 $mol_labeler
+							title <= refinement_title* \
+							content <= refinement_content* /
+								<= Refinement_link*0 $mol_link
+									arg <= refinement_link_arg* *
+									title <= refinement_link_title* \
 				<= Search_error $mol_view
 					sub / <= search_error
 				<= Search_nothing_found $mol_view

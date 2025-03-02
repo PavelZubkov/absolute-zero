@@ -3,40 +3,21 @@ namespace $ {
 	const Rec = $mol_data_record
 	const Str = $mol_data_string
 	const Maybe = $mol_data_optional
-	const Vary = $mol_data_variant
 	const Nully = $mol_data_nullable
 	const Arr = $mol_data_array
-	const Num = $mol_data_number
 	const Int = $mol_data_integer
-	const Const = $mol_data_const
 	const Bool = $mol_data_boolean
 
-	const Guess_results = Rec( {
-		formulae: Maybe( Str ),
-		elements: Maybe( Str ),
-		props: Maybe( Str ),
-		classes: Maybe( Str ),
-		numeric: Maybe( Arr( Rec( {
-			0: Str,  // свойство
-			1: Str,  // оператор
-			2: Maybe( Num ) // значение
-		} ) ) ),
-		ignored: Arr( Str )
+	export const $optimade_zero_search_refinement_item = Rec( {
+		facet: val => val as keyof $optimade_zero_search_params,
+		value: Str,
+		count: Int,
 	} )
 
 	const Refinement_response = Rec( {
 		error: Nully( Str ),
 		total_count: Int,
-		payload: Arr( Rec( {
-			facet: Vary(
-				Const( 'elements' ),
-				Const( 'props' ),
-				Const( 'classes' ),
-				Const( 'lattices' ),
-			),
-			value: Str,
-			count: Int,
-		} ) ),
+		payload: Arr( $optimade_zero_search_refinement_item ),
 	} )
 
 	export const $optimade_zero_search_entry = Rec( {
@@ -59,12 +40,12 @@ namespace $ {
 	} )
 
 	const Suggest_response = Arr( Rec( {
-		facet: val => val as keyof Search_params,
+		facet: val => val as keyof $optimade_zero_search_params,
 		label: Str,
 		id: Str,
 	} ) )
 
-	type Search_params = {
+	export type $optimade_zero_search_params = {
 		props?: string
 		elements?: string
 		classes?: string
@@ -79,17 +60,19 @@ namespace $ {
 		years?: string
 		geos?: string
 		orgs?: string
+		doi?: string
+		numeric?: string
 	}
 
 	export class $optimade_zero_search extends $mol_object {
 
 		@$mol_mem
-		search_params( next?: Search_params ) {
-			return this.$.$mol_state_arg.dict(next) ?? {}
+		params( next?: $optimade_zero_search_params ): $optimade_zero_search_params {
+			return next ?? {}
 		}
 
-		search_param_add( facet: keyof Search_params, value: string ) {
-			const params = this.search_params()
+		param_add( facet: keyof $optimade_zero_search_params, value: string ) {
+			const params = this.params()
 			let next = params[ facet ] ?? ''
 
 			if( next.includes( value ) ) return
@@ -97,28 +80,28 @@ namespace $ {
 			if( !next ) next = value
 			else next += `${ this.separator( facet ) }${ value }`
 
-			this.search_params( { ...params, [ facet ]: next } )
+			this.params( { ...params, [ facet ]: next } )
 		}
 
-		search_param_drop( facet: keyof Search_params, value?: string ) {
-			let { [ facet ]: next, ...params } = this.search_params()
+		param_drop( facet: keyof $optimade_zero_search_params, value?: string ) {
+			let { [ facet ]: next, ...params } = this.params()
 
 			if( !value ) {
-				this.search_params( { ...params } )
+				this.params( { ...params } )
 				return
 			}
 
 			const sep = this.separator( facet )
 			next = next?.split( sep ).filter( val => val !== value ).join( sep )
 
-			this.search_params( { ...params, [ facet ]: next } )
+			this.params( { ...params, [ facet ]: next } )
 		}
 
 		separator_default() {
 			return ','
 		}
 
-		separator( facet: keyof Search_params ) {
+		separator( facet: keyof $optimade_zero_search_params ) {
 			const obj = {
 				elements: '-',
 			} as Record<typeof facet, string>
@@ -126,23 +109,23 @@ namespace $ {
 		}
 
 		@$mol_mem
-		search_params_api() {
-			const params = { ...this.search_params() }
+		params_api() {
+			const params = { ...this.params() }
 			if( params.formulae ) {
 				params.formulae = params.formulae.replace( /<\/?sub>/g, '' )
 			}
 			const query = JSON.stringify( params )
-			return query.replaceAll( this.separator_default(), ' ' )
+			return query
 		}
 
 		@$mol_mem
-		search_params_labels() {
-			const result = [] as { facet: keyof Search_params, label: string }[]
+		params_labels() {
+			const result = [] as { facet: keyof $optimade_zero_search_params, label: string }[]
 
-			const keys = Object.keys( this.search_params() ) as Array<keyof Search_params>
+			const keys = Object.keys( this.params() ) as Array<keyof $optimade_zero_search_params>
 
 			for( const facet of keys ) {
-				const val = this.search_params()[ facet ]
+				const val = this.params()[ facet ]
 				if( !val ) continue
 
 				const values = val.split( this.separator( facet ) )
@@ -153,14 +136,8 @@ namespace $ {
 		}
 
 		@$mol_mem
-		filters() {
-			const res = $mol_fetch.json( `https://api.mpds.io/v0/search/refinement?q=${ this.search_params_api() }` )
-			return Refinement_response( res as any )
-		}
-
-		@$mol_mem
 		results_response() {
-			const res = $mol_fetch.json( `https://api.mpds.io/v0/search/facet?q=${ this.search_params_api() }` )
+			const res = $mol_fetch.json( `https://api.mpds.io/v0/search/facet?q=${ this.params_api() }` )
 			return Facet_response( res as any )
 		}
 
@@ -169,7 +146,7 @@ namespace $ {
 			return this.results_response().out?.map( tuple => new $optimade_zero_entry( tuple ) ) ?? []
 		}
 
-		@ $mol_mem
+		@$mol_mem
 		error() {
 			return this.results_response().error ?? ''
 		}
@@ -179,6 +156,83 @@ namespace $ {
 			const res = $mol_fetch.json( `https://api.mpds.io/v0/search/selectize?q=${ query }` )
 			return Suggest_response( res as any )
 		}
+
+		arity_names() {
+			return {
+				0: 'unary',
+				1: 'binary',
+				2: 'ternary',
+				3: 'quaternary',
+				4: 'quinary',
+				5: 'multinary',
+			} as { [ key: string ]: string }
+		}
+
+		param_names() {
+			return {
+				aeatoms: 'Polyhedron atoms',
+				aetypes: 'Polyhedral types',
+				authors: 'Authors',
+				classes: 'Materials classes',
+				codens: 'Journal codes',
+				doi: 'DOI',
+				elements: 'Chemical elements',
+				formulae: 'Chemical formulae',
+				geos: 'Geography',
+				lattices: 'Crystal systems',
+				numeric: 'Numerical search',
+				orgs: 'Organization',
+				props: 'Physical properties',
+				protos: 'Prototypes',
+				sgs: 'Space groups',
+				years: 'Years',
+			}
+		}
+
+		@$mol_mem
+		refinements_response() {
+			const res = $mol_fetch.json( `https://api.mpds.io/v0/search/refinement?q=${ this.params_api() }` )
+			const json = Refinement_response( res as any )
+
+			for (const item of json.payload) {
+				if (item.facet === 'elements') {
+					(item.value as any) = item.value.split(',').map(v => v.trim()).join( this.separator('elements') )
+				}
+			}
+
+			return json
+		}
+
+		@$mol_mem
+		refinements() {
+			const refinements = {} as Record<keyof $optimade_zero_search_params, typeof $optimade_zero_search_refinement_item.Value[] | undefined>
+
+			for( const item of this.refinements_response().payload ) {
+				const list = refinements[ item.facet ] = refinements[ item.facet ] ?? []
+				list.push( item )
+			}
+
+			return refinements
+		}
+
+		@$mol_mem
+		arity() {
+			const arity = [] as string[]
+
+			const params = this.params()
+
+			if( !params.formulae ) {
+				const current_arity = params.elements?.split( this.separator( 'elements' ) ).length ?? 0
+
+				for( let i = current_arity; i < 5; i++ ) {
+					const name = this.arity_names()[ i ]
+					arity.push( name )
+				}
+			}
+
+			return arity
+		}
+
 
 	}
 }
