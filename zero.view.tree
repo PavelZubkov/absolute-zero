@@ -44,5 +44,6 @@ $optimade_zero $mol_book2
 					sub / <= nothing_found @ \Nothing found	
 		<= Results_page $optimade_zero_entry_page 
 			Search <= Search
+			User <= User
 		<= User_page $optimade_zero_user_page
 			User <= User

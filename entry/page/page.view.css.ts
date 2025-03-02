@@ -24,6 +24,14 @@ namespace $.$$ {
 		Search_results: {
 			gap: $mol_gap.block,
 		},
+
+		Thumbs: {
+			width: '80px',
+		},
+
+		Link: {
+			textTransform: 'uppercase',
+		},
 		
 	} )
 	

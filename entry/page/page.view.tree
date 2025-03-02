@@ -1,5 +1,6 @@
 $optimade_zero_entry_page $mol_page
 	Search $optimade_zero_search
+	User $optimade_zero_user
 	title @ \Showing {count} results
 	tools /
 		<= Close $mol_link
@@ -41,21 +42,9 @@ $optimade_zero_entry_page $mol_page
 										\]
 						<= Card_links* $mol_view
 							sub <= links* /
-								<= Ref* $mol_link
-									uri <= item_ref* \
-									title \Ref.
-									target \_blank
-								<= Pdf* $mol_link
-									uri <= item_pdf* \
-									title \PDF
-									target \_blank
-								<= Png* $mol_link
-									uri <= item_png* \
-									title \PNG
-									target \_blank
-								<= Gif* $mol_link
-									uri <= item_gif* \
-									title \GIF
+								<= Link*0 $mol_link
+									uri <= link_uri* \
+									title <= link_title* \
 									target \_blank
 				<= Item*0 $mol_row
 					sub <= item_row* /
