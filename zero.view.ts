@@ -19,7 +19,9 @@ namespace $.$$ {
 
 		@ $mol_mem
 		search_params( next?: $optimade_zero_search_params ): $optimade_zero_search_params {
-			return this.$.$mol_state_arg.dict( next ) ?? {}
+			// conflict with other url params
+			// return this.$.$mol_state_arg.dict( next ) ?? {}
+			return this.$.$mol_state_local.value('search_params', next) ?? {}
 		}
 
 		search_page_body() {
