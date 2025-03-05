@@ -8520,10 +8520,10 @@ var $;
             this.data(json);
         }
         sign_out() {
+            this.data(null);
             const form = new FormData();
             form.append('sid', this.sid());
             this.$.$mol_fetch.json(`${this.uri()}/logout`, { method: 'post', body: form });
-            this.data(null);
         }
         pass_recovery(login) {
             const form = new FormData();
