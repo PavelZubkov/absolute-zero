@@ -211,13 +211,15 @@
     "$mol_card",
     "$mol_row",
     "$optimade_zero_user",
+    "$mol_data_variant",
+    "$mol_data_const",
     "$optimade_zero_user_page",
+    "$mol_button_major",
     "$mol_form_field",
     "$mol_form",
     "$mol_password",
     "$mol_icon_eye",
-    "$mol_check_icon",
-    "$mol_button_major"
+    "$mol_check_icon"
   ],
   "dependencies": {
     "jsdom": "*"

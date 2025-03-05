@@ -8501,11 +8501,61 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    function $mol_data_variant(...sub) {
+        return $mol_data_setup((val) => {
+            const errors = [];
+            for (const type of sub) {
+                let hidden = $.$mol_fail_hidden;
+                try {
+                    $.$mol_fail = $.$mol_fail_hidden;
+                    return type(val);
+                }
+                catch (error) {
+                    $.$mol_fail = hidden;
+                    if (error instanceof $mol_data_error) {
+                        errors.push(error);
+                    }
+                    else {
+                        return $mol_fail_hidden(error);
+                    }
+                }
+            }
+            return $mol_fail(new $mol_data_error(`${val} is not any of variants`, {}, ...errors));
+        }, sub);
+    }
+    $.$mol_data_variant = $mol_data_variant;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_data_const(ref) {
+        return $mol_data_setup((val) => {
+            if ($mol_compare_deep(val, ref))
+                return ref;
+            return $mol_fail(new $mol_data_error(`${JSON.stringify(val)} is not ${JSON.stringify(ref)}`));
+        }, ref);
+    }
+    $.$mol_data_const = $mol_data_const;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
     const Rec = $mol_data_record;
     const Str = $mol_data_string;
-    const Response = Rec({
+    const Bool = $mol_data_boolean;
+    const Maybe = $mol_data_optional;
+    const Vary = $mol_data_variant;
+    const Const = $mol_data_const;
+    const Sign_in_response = Rec({
         name: Str,
         sid: Str,
+        acclogin: Str,
+        admin: Bool,
+        ipbased: Bool,
     });
     class $optimade_zero_user extends $mol_object {
         uri() {
@@ -8516,7 +8566,7 @@ var $;
             form.append('login', login);
             form.append('pass', pass);
             const res = this.$.$mol_fetch.json(`${this.uri()}/login`, { method: 'post', body: form });
-            const json = Response(res);
+            const json = Sign_in_response(res);
             this.data(json);
         }
         sign_out() {
@@ -8538,6 +8588,9 @@ var $;
         }
         sid() {
             return this.data()?.sid ?? '';
+        }
+        ip_based() {
+            return this.data()?.ipbased ?? false;
         }
         signed() {
             return !!this.data();
@@ -8830,6 +8883,24 @@ var $;
 })($ || ($ = {}));
 
 ;
+	($.$mol_button_major) = class $mol_button_major extends ($.$mol_button_minor) {
+		theme(){
+			return "$mol_theme_base";
+		}
+	};
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major] {\n\tbackground-color: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+;
 	($.$mol_form_field) = class $mol_form_field extends ($.$mol_labeler) {
 		name(){
 			return "";
@@ -8993,24 +9064,6 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$mol_button_major) = class $mol_button_major extends ($.$mol_button_minor) {
-		theme(){
-			return "$mol_theme_base";
-		}
-	};
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major] {\n\tbackground-color: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-;
 	($.$mol_form) = class $mol_form extends ($.$mol_list) {
 		keydown(next){
 			if(next !== undefined) return next;
@@ -9115,6 +9168,19 @@ var $;
 			(obj.sub) = () => ([(this.Close_icon())]);
 			return obj;
 		}
+		sign_out_label(){
+			return (this.$.$mol_locale.text("$optimade_zero_user_page_sign_out_label"));
+		}
+		sign_out(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Sign_out_button(){
+			const obj = new this.$.$mol_button_major();
+			(obj.title) = () => ((this.sign_out_label()));
+			(obj.click) = (next) => ((this.sign_out(next)));
+			return obj;
+		}
 		login_label(){
 			return (this.$.$mol_locale.text("$optimade_zero_user_page_login_label"));
 		}
@@ -9204,22 +9270,9 @@ var $;
 			(obj.buttons) = () => ([(this.Send_link_button()), (this.Pass_recovery_link())]);
 			return obj;
 		}
-		sign_out_label(){
-			return (this.$.$mol_locale.text("$optimade_zero_user_page_sign_out_label"));
-		}
-		sign_out(next){
-			if(next !== undefined) return next;
-			return null;
-		}
-		Sign_out_button(){
-			const obj = new this.$.$mol_button_major();
-			(obj.title) = () => ((this.sign_out_label()));
-			(obj.click) = (next) => ((this.sign_out(next)));
-			return obj;
-		}
 		Profile(){
 			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.Sign_out_button())]);
+			(obj.sub) = () => (["...SOON..."]);
 			return obj;
 		}
 		check_email_label(){
@@ -9243,6 +9296,9 @@ var $;
 		tools(){
 			return [(this.Close())];
 		}
+		foot(){
+			return [(this.Sign_out_button())];
+		}
 		body(){
 			return [
 				(this.Login_form()), 
@@ -9254,6 +9310,8 @@ var $;
 	};
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Close_icon"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Close"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "sign_out"));
+	($mol_mem(($.$optimade_zero_user_page.prototype), "Sign_out_button"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "login"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Login_control"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Login_field"));
@@ -9267,8 +9325,6 @@ var $;
 	($mol_mem(($.$optimade_zero_user_page.prototype), "send_link"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Send_link_button"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Pass_recovery"));
-	($mol_mem(($.$optimade_zero_user_page.prototype), "sign_out"));
-	($mol_mem(($.$optimade_zero_user_page.prototype), "Sign_out_button"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Profile"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "Check_email"));
 	($mol_mem(($.$optimade_zero_user_page.prototype), "User"));
@@ -9329,7 +9385,10 @@ var $;
             Check_email: {
                 padding: $mol_gap.block,
                 color: $mol_theme.special,
-            }
+            },
+            Foot: {
+                justifyContent: 'flex-end',
+            },
         });
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
