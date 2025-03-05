@@ -9,7 +9,11 @@ namespace $.$$ {
 		Check_email: {
 			padding: $mol_gap.block,
 			color: $mol_theme.special,
-		}
+		},
+
+		Foot: {
+			justifyContent: 'flex-end',
+		},
 		
 	} )
 	

@@ -6,6 +6,10 @@ $optimade_zero_user_page $mol_page
 		<= Close $mol_link
 			arg * page null
 			sub / <= Close_icon $mol_icon_close
+	foot /
+		<= Sign_out_button $mol_button_major
+			title <= sign_out_label @ \Sign out
+			click? <=> sign_out? null
 	body /
 		<= Login_form $mol_form
 			form_fields /
@@ -41,9 +45,7 @@ $optimade_zero_user_page $mol_page
 				<= Pass_recovery_link
 		<= Profile $mol_view
 			sub /
-				<= Sign_out_button $mol_button_major
-					title <= sign_out_label @ \Sign out
-					click? <=> sign_out? null
+				\...SOON...
 		<= Check_email $mol_view
 			sub /
 				<= check_email_label @ \Please, check your inbox (and spam)
