@@ -27,10 +27,10 @@ namespace $ {
 
 		@ $mol_action
 		sign_out() {
+			this.data(null)
 			const form = new FormData()
 			form.append('sid', this.sid())
 			this.$.$mol_fetch.json(`${this.uri()}/logout`, { method: 'post', body: form })
-			this.data(null)
 		}
 
 		@ $mol_action
