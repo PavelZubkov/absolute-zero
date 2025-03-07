@@ -13,13 +13,10 @@ namespace $.$$ {
 			margin: 'auto',
 		},
 
-		Refinement_label: {
-			padding: $mol_gap.text,
-		},
-
 		Refinement: {
 			Label: {
 				justifyContent: 'space-between',
+				alignItems: 'center',
 			},
 		},
 		

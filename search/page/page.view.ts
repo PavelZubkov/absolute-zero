@@ -36,7 +36,7 @@ namespace $.$$ {
 			return list.filter( Boolean )
 		}
 
-		refinement_label( facet: string ) {
+		refinement_title( facet: string ) {
 			return this.Search().facet()[ facet as 'elements' ]
 		}
 
@@ -46,7 +46,7 @@ namespace $.$$ {
 
 		refinement_label_sub( facet: string ) {
 			return [
-				this.Refinement_label( facet ),
+				this.Refinement_title( facet ),
 				... !this.Search().refinements().more[ facet ] ? [this.Refinement_show_more( facet )] : [],
 			]
 		}
