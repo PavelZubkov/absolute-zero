@@ -4038,6 +4038,7 @@ declare namespace $.$$ {
         sign_in(): void;
         sign_out(): void;
         send_link(): void;
+        foot(): $mol_button_major[];
     }
 }
 

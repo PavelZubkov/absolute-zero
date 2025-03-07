@@ -10410,6 +10410,11 @@ var $;
                 this.User().pass_recovery(this.login());
                 this.$.$mol_state_arg.value('recovery', 'check');
             }
+            foot() {
+                return [
+                    ...this.User().signed() ? [this.Sign_out_button()] : [],
+                ];
+            }
         }
         $$.$optimade_zero_user_page = $optimade_zero_user_page;
     })($$ = $.$$ || ($.$$ = {}));
