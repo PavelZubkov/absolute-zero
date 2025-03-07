@@ -17,6 +17,7 @@ namespace $.$$ {
 			Label: {
 				justifyContent: 'space-between',
 				alignItems: 'center',
+				paddingTop: '0px',
 			},
 		},
 		
