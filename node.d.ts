@@ -1170,6 +1170,188 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_state_time extends $mol_object {
+        static task(precision: number, reset?: null): $mol_after_timeout | $mol_after_frame;
+        static now(precision: number): number;
+    }
+}
+
+declare namespace $ {
+
+	export class $mol_svg extends $mol_view {
+		dom_name( ): string
+		dom_name_space( ): string
+		font_size( ): number
+		font_family( ): string
+		style_size( ): Record<string, any>
+	}
+	
+}
+
+//# sourceMappingURL=svg.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_svg extends $.$mol_svg {
+        computed_style(): Record<string, any>;
+        font_size(): number;
+        font_family(): any;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_svg_root extends $mol_svg {
+		view_box( ): string
+		aspect( ): string
+		dom_name( ): string
+		attr( ): ({ 
+			'viewBox': ReturnType< $mol_svg_root['view_box'] >,
+			'preserveAspectRatio': ReturnType< $mol_svg_root['aspect'] >,
+		})  & ReturnType< $mol_svg['attr'] >
+	}
+	
+}
+
+//# sourceMappingURL=root.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_svg_path extends $mol_svg {
+		geometry( ): string
+		dom_name( ): string
+		attr( ): ({ 
+			'd': ReturnType< $mol_svg_path['geometry'] >,
+		})  & ReturnType< $mol_svg['attr'] >
+	}
+	
+}
+
+//# sourceMappingURL=path.view.tree.d.ts.map
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_svg_path__geometry_mol_icon_1 = $mol_type_enforce<
+		ReturnType< $mol_icon['path'] >
+		,
+		ReturnType< $mol_svg_path['geometry'] >
+	>
+	export class $mol_icon extends $mol_svg_root {
+		path( ): string
+		Path( ): $mol_svg_path
+		view_box( ): string
+		minimal_width( ): number
+		minimal_height( ): number
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=icon.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_login extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=login.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_account extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=account.view.tree.d.ts.map
+declare namespace $ {
+    let $mol_action: typeof $mol_wire_method;
+}
+
+declare namespace $ {
+    class $mol_state_arg extends $mol_object {
+        prefix: string;
+        static prolog: string;
+        static separator: string;
+        static href(next?: string): string;
+        static href_normal(): string;
+        static dict(next?: {
+            [key: string]: string | null;
+        }): Readonly<{
+            [key: string]: string;
+        }>;
+        static value(key: string, next?: string | null): string | null;
+        static link(next: Record<string, string | null>): string;
+        static make_link(next: Record<string, string | null>): string;
+        static go(next: {
+            [key: string]: string | null;
+        }): void;
+        static commit(): void;
+        constructor(prefix?: string);
+        value(key: string, next?: string): string | null;
+        sub(postfix: string): $mol_state_arg;
+        link(next: Record<string, string | null>): string;
+    }
+}
+
+declare namespace $ {
+
+	export class $mol_link extends $mol_view {
+		uri_toggle( ): string
+		hint( ): string
+		hint_safe( ): ReturnType< $mol_link['hint'] >
+		target( ): string
+		file_name( ): string
+		current( ): boolean
+		relation( ): string
+		event_click( next?: any ): any
+		click( next?: ReturnType< $mol_link['event_click'] > ): ReturnType< $mol_link['event_click'] >
+		uri( ): string
+		dom_name( ): string
+		uri_off( ): string
+		uri_native( ): any
+		external( ): boolean
+		attr( ): ({ 
+			'href': ReturnType< $mol_link['uri_toggle'] >,
+			'title': ReturnType< $mol_link['hint_safe'] >,
+			'target': ReturnType< $mol_link['target'] >,
+			'download': ReturnType< $mol_link['file_name'] >,
+			'mol_link_current': ReturnType< $mol_link['current'] >,
+			'rel': ReturnType< $mol_link['relation'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		sub( ): readonly($mol_view_content)[]
+		arg( ): Record<string, any>
+		event( ): ({ 
+			click( next?: ReturnType< $mol_link['click'] > ): ReturnType< $mol_link['click'] >,
+		})  & ReturnType< $mol_view['event'] >
+	}
+	
+}
+
+//# sourceMappingURL=link.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_link extends $.$mol_link {
+        uri_toggle(): string;
+        uri(): string;
+        uri_off(): string;
+        uri_native(): URL;
+        current(): boolean;
+        file_name(): string;
+        minimal_height(): number;
+        external(): boolean;
+        target(): '_self' | '_blank' | '_top' | '_parent' | string;
+        hint_safe(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     let $mol_mem_persist: typeof $mol_wire_solid;
 }
 
@@ -1195,10 +1377,6 @@ declare namespace $ {
         prefix(): string;
         value(key: string, next?: Value): Value | null;
     }
-}
-
-declare namespace $ {
-    let $mol_action: typeof $mol_wire_method;
 }
 
 declare namespace $ {
@@ -1384,228 +1562,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-
-	export class $mol_paragraph extends $mol_view {
-		line_height( ): number
-		letter_width( ): number
-		width_limit( ): number
-		row_width( ): number
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=paragraph.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_paragraph extends $.$mol_paragraph {
-        maximal_width(): number;
-        width_limit(): number;
-        minimal_width(): number;
-        row_width(): number;
-        minimal_height(): number;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_state_time extends $mol_object {
-        static task(precision: number, reset?: null): $mol_after_timeout | $mol_after_frame;
-        static now(precision: number): number;
-    }
-}
-
-declare namespace $ {
-
-	export class $mol_svg extends $mol_view {
-		dom_name( ): string
-		dom_name_space( ): string
-		font_size( ): number
-		font_family( ): string
-		style_size( ): Record<string, any>
-	}
-	
-}
-
-//# sourceMappingURL=svg.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_svg extends $.$mol_svg {
-        computed_style(): Record<string, any>;
-        font_size(): number;
-        font_family(): any;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_svg_root extends $mol_svg {
-		view_box( ): string
-		aspect( ): string
-		dom_name( ): string
-		attr( ): ({ 
-			'viewBox': ReturnType< $mol_svg_root['view_box'] >,
-			'preserveAspectRatio': ReturnType< $mol_svg_root['aspect'] >,
-		})  & ReturnType< $mol_svg['attr'] >
-	}
-	
-}
-
-//# sourceMappingURL=root.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_svg_path extends $mol_svg {
-		geometry( ): string
-		dom_name( ): string
-		attr( ): ({ 
-			'd': ReturnType< $mol_svg_path['geometry'] >,
-		})  & ReturnType< $mol_svg['attr'] >
-	}
-	
-}
-
-//# sourceMappingURL=path.view.tree.d.ts.map
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_svg_path__geometry_mol_icon_1 = $mol_type_enforce<
-		ReturnType< $mol_icon['path'] >
-		,
-		ReturnType< $mol_svg_path['geometry'] >
-	>
-	export class $mol_icon extends $mol_svg_root {
-		path( ): string
-		Path( ): $mol_svg_path
-		view_box( ): string
-		minimal_width( ): number
-		minimal_height( ): number
-		sub( ): readonly(any)[]
-	}
-	
-}
-
-//# sourceMappingURL=icon.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_login extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=login.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_account extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=account.view.tree.d.ts.map
-declare namespace $ {
-    class $mol_state_arg extends $mol_object {
-        prefix: string;
-        static prolog: string;
-        static separator: string;
-        static href(next?: string): string;
-        static href_normal(): string;
-        static dict(next?: {
-            [key: string]: string | null;
-        }): Readonly<{
-            [key: string]: string;
-        }>;
-        static value(key: string, next?: string | null): string | null;
-        static link(next: Record<string, string | null>): string;
-        static make_link(next: Record<string, string | null>): string;
-        static go(next: {
-            [key: string]: string | null;
-        }): void;
-        static commit(): void;
-        constructor(prefix?: string);
-        value(key: string, next?: string): string | null;
-        sub(postfix: string): $mol_state_arg;
-        link(next: Record<string, string | null>): string;
-    }
-}
-
-declare namespace $ {
-
-	export class $mol_link extends $mol_view {
-		uri_toggle( ): string
-		hint( ): string
-		hint_safe( ): ReturnType< $mol_link['hint'] >
-		target( ): string
-		file_name( ): string
-		current( ): boolean
-		relation( ): string
-		event_click( next?: any ): any
-		click( next?: ReturnType< $mol_link['event_click'] > ): ReturnType< $mol_link['event_click'] >
-		uri( ): string
-		dom_name( ): string
-		uri_off( ): string
-		uri_native( ): any
-		external( ): boolean
-		attr( ): ({ 
-			'href': ReturnType< $mol_link['uri_toggle'] >,
-			'title': ReturnType< $mol_link['hint_safe'] >,
-			'target': ReturnType< $mol_link['target'] >,
-			'download': ReturnType< $mol_link['file_name'] >,
-			'mol_link_current': ReturnType< $mol_link['current'] >,
-			'rel': ReturnType< $mol_link['relation'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		sub( ): readonly($mol_view_content)[]
-		arg( ): Record<string, any>
-		event( ): ({ 
-			click( next?: ReturnType< $mol_link['click'] > ): ReturnType< $mol_link['click'] >,
-		})  & ReturnType< $mol_view['event'] >
-	}
-	
-}
-
-//# sourceMappingURL=link.view.tree.d.ts.map
-declare namespace $.$$ {
-    class $mol_link extends $.$mol_link {
-        uri_toggle(): string;
-        uri(): string;
-        uri_off(): string;
-        uri_native(): URL;
-        current(): boolean;
-        file_name(): string;
-        minimal_height(): number;
-        external(): boolean;
-        target(): '_self' | '_blank' | '_top' | '_parent' | string;
-        hint_safe(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_icon_arrow_right extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=right.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_arrow_right_bold extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=bold.view.tree.d.ts.map
-declare namespace $ {
     type $mol_data_value<Input = any, Output = any> = (val: Input) => Output;
 }
 
@@ -1728,28 +1684,28 @@ declare namespace $ {
     }
 }
 
-declare namespace $ {
-    const $optimade_zero_search_refinement_item: ((val: {
-        facet?: any;
+declare namespace $.$$ {
+    export const $optimade_zero_search_refinement_item: ((val: {
+        facet: string;
         value: string;
         count: number;
     }) => Readonly<{
-        facet: keyof $optimade_zero_search_params;
+        facet: string;
         value: string;
         count: number;
     }>) & {
         config: {
-            facet: (val: any) => keyof $optimade_zero_search_params;
+            facet: (val: string) => string;
             value: (val: string) => string;
             count: typeof $mol_data_integer;
         };
         Value: Readonly<{
-            facet: keyof $optimade_zero_search_params;
+            facet: string;
             value: string;
             count: number;
         }>;
     };
-    const $optimade_zero_search_entry: ((val: {
+    export const $optimade_zero_search_entry: ((val: {
         0: string;
         1: string;
         2: string;
@@ -1789,95 +1745,166 @@ declare namespace $ {
             7: number;
         }>;
     };
-    type $optimade_zero_search_params = {
-        props?: string;
-        elements?: string;
-        classes?: string;
-        lattices?: string;
-        formulae?: string;
-        sgs?: string;
-        protos?: string;
-        aeatoms?: string;
-        aetypes?: string;
-        authors?: string;
-        codens?: string;
-        years?: string;
-        geos?: string;
-        orgs?: string;
-        doi?: string;
-        numeric?: string;
+    type Refinement = {
+        payload: Record<string, typeof $optimade_zero_search_refinement_item.Value[]>;
+        error: string | null;
+        more: Record<string, boolean | undefined>;
     };
-    class $optimade_zero_search extends $mol_object {
-        params(next?: $optimade_zero_search_params): $optimade_zero_search_params;
-        param_add(facet: keyof $optimade_zero_search_params, value: string): void;
-        param_drop(facet: keyof $optimade_zero_search_params, value?: string): void;
-        separator_default(): string;
-        separator(facet: keyof $optimade_zero_search_params): string;
-        params_api(): string;
-        params_labels(): {
-            facet: keyof $optimade_zero_search_params;
+    export class $optimade_zero_search extends $.$optimade_zero_search {
+        param(facet: string, next?: string | null): string;
+        param_add(facet: string, value: string): void;
+        param_drop(facet: string, value: string | null): void;
+        extend_param(next?: string[]): string[] | "";
+        drop_all(): void;
+        separator(facet: string): string;
+        param_dict(): Record<string, string>;
+        param_api(extend?: string): string;
+        clone(): $optimade_zero_search;
+        is_empty(): boolean;
+        refinements(next?: Refinement): Refinement;
+        refinements_load_more(facet: string): void;
+        suggests(query: string): readonly Readonly<{
             label: string;
-        }[];
-        results_response(): Readonly<{
+            facet: string;
+            id: string;
+        }>[];
+        search(): {
+            out: $optimade_zero_entry[];
             fuzzy_notice?: string | null | undefined;
             notice?: string | undefined;
             estimated_count?: number | undefined;
-            out?: readonly Readonly<{
-                0: string;
-                1: string;
-                2: string;
-                3: number;
-                4: boolean;
-                5: string;
-                6: number;
-                7: number;
-            }>[] | undefined;
             error: string | null;
-        }>;
-        results(): $optimade_zero_entry[];
-        error(): string;
-        suggests(query: string): readonly Readonly<{
-            label: string;
-            facet: keyof $optimade_zero_search_params;
-            id: string;
-        }>[];
-        arity_names(): {
-            [key: string]: string;
         };
-        param_names(): {
-            aeatoms: string;
-            aetypes: string;
-            authors: string;
-            classes: string;
-            codens: string;
-            doi: string;
-            elements: string;
-            formulae: string;
-            geos: string;
-            lattices: string;
-            numeric: string;
-            orgs: string;
-            props: string;
-            protos: string;
-            sgs: string;
-            years: string;
-        };
-        refinements_response(): Readonly<{
-            error: string | null;
-            total_count: number;
-            payload: readonly Readonly<{
-                facet: keyof $optimade_zero_search_params;
-                value: string;
-                count: number;
-            }>[];
-        }>;
-        refinements(): Record<keyof $optimade_zero_search_params, Readonly<{
-            facet: keyof $optimade_zero_search_params;
-            value: string;
-            count: number;
-        }>[] | undefined>;
-        arity(): string[];
+        arities(): string[];
     }
+    export {};
+}
+
+declare namespace $ {
+
+	export class $optimade_zero_search extends $mol_object {
+		suggests_uri( ): string
+		search_uri( ): string
+		refinements_uri( ): string
+		refinements_extend_param( ): string
+		param( id: any, next?: string ): string
+		separators( ): ({ 
+			'elements': string,
+			'default': string,
+		}) 
+		arity( ): ({ 
+			'unary': string,
+			'binary': string,
+			'ternary': string,
+			'quaternary': string,
+		}) 
+		facet( ): ({ 
+			'aeatoms': string,
+			'aetypes': string,
+			'authors': string,
+			'classes': string,
+			'codens': string,
+			'doi': string,
+			'elements': string,
+			'formulae': string,
+			'geos': string,
+			'lattices': string,
+			'numeric': string,
+			'orgs': string,
+			'props': string,
+			'protos': string,
+			'sgs': string,
+			'years': string,
+		}) 
+	}
+	
+}
+
+//# sourceMappingURL=search.view.tree.d.ts.map
+declare namespace $ {
+
+	type $mol_view__dom_name_mol_page_1 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_view['dom_name'] >
+	>
+	type $mol_view__sub_mol_page_2 = $mol_type_enforce<
+		ReturnType< $mol_page['title_content'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__sub_mol_page_3 = $mol_type_enforce<
+		ReturnType< $mol_page['tools'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_view__minimal_height_mol_page_4 = $mol_type_enforce<
+		number
+		,
+		ReturnType< $mol_view['minimal_height'] >
+	>
+	type $mol_view__dom_name_mol_page_5 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_view['dom_name'] >
+	>
+	type $mol_view__sub_mol_page_6 = $mol_type_enforce<
+		ReturnType< $mol_page['head'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type __mol_page_7 = $mol_type_enforce<
+		Parameters< $mol_page['body_scroll_top'] >[0]
+		,
+		Parameters< ReturnType< $mol_page['Body'] >['scroll_top'] >[0]
+	>
+	type $mol_view__sub_mol_page_8 = $mol_type_enforce<
+		ReturnType< $mol_page['body'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_scroll__sub_mol_page_9 = $mol_type_enforce<
+		ReturnType< $mol_page['body_content'] >
+		,
+		ReturnType< $mol_scroll['sub'] >
+	>
+	type $mol_view__dom_name_mol_page_10 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_view['dom_name'] >
+	>
+	type $mol_view__sub_mol_page_11 = $mol_type_enforce<
+		ReturnType< $mol_page['foot'] >
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $mol_page extends $mol_view {
+		tabindex( ): number
+		Logo( ): any
+		title_content( ): readonly(any)[]
+		Title( ): $mol_view
+		tools( ): readonly($mol_view_content)[]
+		Tools( ): $mol_view
+		head( ): readonly(any)[]
+		Head( ): $mol_view
+		body_scroll_top( next?: ReturnType< ReturnType< $mol_page['Body'] >['scroll_top'] > ): ReturnType< ReturnType< $mol_page['Body'] >['scroll_top'] >
+		body( ): readonly($mol_view)[]
+		Body_content( ): $mol_view
+		body_content( ): readonly(any)[]
+		Body( ): $mol_scroll
+		foot( ): readonly($mol_view)[]
+		Foot( ): $mol_view
+		dom_name( ): string
+		attr( ): ({ 
+			'tabIndex': ReturnType< $mol_page['tabindex'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=page.view.tree.d.ts.map
+declare namespace $.$$ {
 }
 
 declare namespace $ {
@@ -2360,6 +2387,32 @@ declare namespace $ {
 }
 
 declare namespace $ {
+
+	export class $mol_paragraph extends $mol_view {
+		line_height( ): number
+		letter_width( ): number
+		width_limit( ): number
+		row_width( ): number
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=paragraph.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $mol_paragraph extends $.$mol_paragraph {
+        maximal_width(): number;
+        width_limit(): number;
+        minimal_width(): number;
+        row_width(): number;
+        minimal_height(): number;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     type $mol_type_intersect<Union> = (Union extends any ? (_: Union) => void : never) extends ((_: infer Intersection) => void) ? Intersection : never;
 }
 
@@ -2641,6 +2694,18 @@ declare namespace $ {
 }
 
 declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_button_major extends $mol_button_minor {
+		theme( ): string
+	}
+	
+}
+
+//# sourceMappingURL=major.view.tree.d.ts.map
+declare namespace $ {
 
 	export class $mol_image extends $mol_view {
 		uri( ): string
@@ -2901,77 +2966,52 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_store<Data> extends $mol_object2 {
-        data_default?: Data | undefined;
-        constructor(data_default?: Data | undefined);
-        data(next?: Data): NonNullable<Data> | (Data & null);
-        snapshot(next?: string): string;
-        value<Key extends keyof Data>(key: Key, next?: Data[Key]): Data[Key] & {};
-        selection<Key extends keyof Data>(key: Key, next?: number[]): number[];
-        sub<Key extends keyof Data, Lens extends $mol_store<Data[Key]> = $mol_store<NonNullable<Data[Key]>>>(key: Key, lens?: Lens): Lens;
-        reset(): void;
-        active(): boolean;
-    }
-}
 
-declare namespace $ {
-    class $optimade_zero_entry extends $mol_store<typeof $optimade_zero_search_entry.Value> {
-        fields(): {
-            readonly entry_id: 0;
-            readonly formula: 1;
-            readonly property: 2;
-            readonly idk: 3;
-            readonly is_public: 4;
-            readonly bib_id: 5;
-            readonly year: 6;
-            readonly ref_id: 7;
-        };
-        cdn_uri(): string;
-        api_uri(): string;
-        id(): string;
-        id_prefix(): string;
-        type(): string;
-        formula_html(): string;
-        property(): string;
-        is_public(): boolean;
-        bib_id(): string | 0;
-        year(): number;
-        ref_id(): number;
-        res_link(fmt: 'pdf' | 'png' | 'gif' | 'json', sid?: string): string;
-        thumbs_link(): string;
-        links(sid?: string): Record<string, string>;
-    }
-}
-
-declare namespace $ {
-
-	type $mol_view__sub_optimade_zero_search_input_1 = $mol_type_enforce<
+	type $mol_button_major__enabled_optimade_zero_search_input_1 = $mol_type_enforce<
+		ReturnType< $optimade_zero_search_input['clear_enabled'] >
+		,
+		ReturnType< $mol_button_major['enabled'] >
+	>
+	type $mol_button_major__click_optimade_zero_search_input_2 = $mol_type_enforce<
+		ReturnType< $optimade_zero_search_input['clear'] >
+		,
+		ReturnType< $mol_button_major['click'] >
+	>
+	type $mol_button_major__title_optimade_zero_search_input_3 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_major['title'] >
+	>
+	type $mol_view__sub_optimade_zero_search_input_4 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $optimade_zero_search_tag__close_optimade_zero_search_input_2 = $mol_type_enforce<
+	type $optimade_zero_search_tag__close_optimade_zero_search_input_5 = $mol_type_enforce<
 		ReturnType< $optimade_zero_search_input['tag_drop'] >
 		,
 		ReturnType< $optimade_zero_search_tag['close'] >
 	>
-	type $optimade_zero_search_tag__label_optimade_zero_search_input_3 = $mol_type_enforce<
+	type $optimade_zero_search_tag__label_optimade_zero_search_input_6 = $mol_type_enforce<
 		ReturnType< $optimade_zero_search_input['tag_label'] >
 		,
 		ReturnType< $optimade_zero_search_tag['label'] >
 	>
-	type $mol_view__sub_optimade_zero_search_input_4 = $mol_type_enforce<
+	type $mol_view__sub_optimade_zero_search_input_7 = $mol_type_enforce<
 		ReturnType< $optimade_zero_search_input['tags'] >
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_html_view__html_optimade_zero_search_input_5 = $mol_type_enforce<
+	type $mol_html_view__html_optimade_zero_search_input_8 = $mol_type_enforce<
 		ReturnType< $optimade_zero_search_input['suggest_html_label'] >
 		,
 		ReturnType< $mol_html_view['html'] >
 	>
 	export class $optimade_zero_search_input extends $mol_search {
 		suggest_html_label( id: any): ReturnType< $optimade_zero_search_input['suggest_label'] >
+		clear_enabled( ): boolean
+		clear( next?: any ): any
+		Clear_button( ): $mol_button_major
 		Input( ): $mol_view
 		tag_drop( id: any, next?: any ): any
 		tag_label( id: any): string
@@ -2987,20 +3027,26 @@ declare namespace $ {
 
 //# sourceMappingURL=input.view.tree.d.ts.map
 declare namespace $.$$ {
-    type Search_params_label = ReturnType<$optimade_zero_search['params_labels']>[number];
+    type Label = {
+        facet: string;
+        title: string;
+    };
     export class $optimade_zero_search_input extends $.$optimade_zero_search_input {
+        Search(): $optimade_zero_search;
         suggests_request(key: string): readonly Readonly<{
             label: string;
-            facet: keyof $optimade_zero_search_params;
+            facet: string;
             id: string;
         }>[];
         suggests(): string[];
         suggest_select(query: string, event?: MouseEvent): void;
         tags(): $.$optimade_zero_search_tag[];
-        tag_label(obj: Search_params_label): string;
-        tag_drop(obj: Search_params_label): void;
+        tag_label(obj: Label): string;
+        tag_drop(obj: Label): void;
         suggest_html_label(suggest_label: string): string;
         suggest_content(suggest_label: string): readonly $mol_view_content[];
+        clear_enabled(): boolean;
+        clear(): void;
     }
     export {};
 }
@@ -3179,88 +3225,175 @@ declare namespace $ {
 //# sourceMappingURL=labeler.view.tree.d.ts.map
 declare namespace $ {
 
-	type $mol_view__dom_name_mol_page_1 = $mol_type_enforce<
+	type $optimade_zero_search_input__Search_optimade_zero_search_page_1 = $mol_type_enforce<
+		ReturnType< $optimade_zero_search_page['Search'] >
+		,
+		ReturnType< $optimade_zero_search_input['Search'] >
+	>
+	type $mol_switch__value_optimade_zero_search_page_2 = $mol_type_enforce<
+		ReturnType< $optimade_zero_search_page['arity'] >
+		,
+		ReturnType< $mol_switch['value'] >
+	>
+	type $mol_switch__options_optimade_zero_search_page_3 = $mol_type_enforce<
+		ReturnType< $optimade_zero_search_page['arity_dict'] >
+		,
+		ReturnType< $mol_switch['options'] >
+	>
+	type $mol_labeler__title_optimade_zero_search_page_4 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_view['dom_name'] >
+		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_view__sub_mol_page_2 = $mol_type_enforce<
-		ReturnType< $mol_page['title_content'] >
+	type $mol_labeler__content_optimade_zero_search_page_5 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_labeler['content'] >
+	>
+	type $mol_view__sub_optimade_zero_search_page_6 = $mol_type_enforce<
+		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_mol_page_3 = $mol_type_enforce<
-		ReturnType< $mol_page['tools'] >
+	type $mol_button_minor__click_optimade_zero_search_page_7 = $mol_type_enforce<
+		ReturnType< $optimade_zero_search_page['show_more'] >
 		,
-		ReturnType< $mol_view['sub'] >
+		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_view__minimal_height_mol_page_4 = $mol_type_enforce<
-		number
-		,
-		ReturnType< $mol_view['minimal_height'] >
-	>
-	type $mol_view__dom_name_mol_page_5 = $mol_type_enforce<
+	type $mol_button_minor__title_optimade_zero_search_page_8 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_view['dom_name'] >
+		ReturnType< $mol_button_minor['title'] >
 	>
-	type $mol_view__sub_mol_page_6 = $mol_type_enforce<
-		ReturnType< $mol_page['head'] >
+	type $mol_link__arg_optimade_zero_search_page_9 = $mol_type_enforce<
+		ReturnType< $optimade_zero_search_page['refinement_link_arg'] >
+		,
+		ReturnType< $mol_link['arg'] >
+	>
+	type $mol_link__title_optimade_zero_search_page_10 = $mol_type_enforce<
+		ReturnType< $optimade_zero_search_page['refinement_link_title'] >
+		,
+		ReturnType< $mol_link['title'] >
+	>
+	type $mol_labeler__label_optimade_zero_search_page_11 = $mol_type_enforce<
+		ReturnType< $optimade_zero_search_page['refinement_label_sub'] >
+		,
+		ReturnType< $mol_labeler['label'] >
+	>
+	type $mol_labeler__content_optimade_zero_search_page_12 = $mol_type_enforce<
+		ReturnType< $optimade_zero_search_page['refinement_content'] >
+		,
+		ReturnType< $mol_labeler['content'] >
+	>
+	type $mol_list__rows_optimade_zero_search_page_13 = $mol_type_enforce<
+		ReturnType< $optimade_zero_search_page['refinement_rows'] >
+		,
+		ReturnType< $mol_list['rows'] >
+	>
+	type $mol_view__sub_optimade_zero_search_page_14 = $mol_type_enforce<
+		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type __mol_page_7 = $mol_type_enforce<
-		Parameters< $mol_page['body_scroll_top'] >[0]
-		,
-		Parameters< ReturnType< $mol_page['Body'] >['scroll_top'] >[0]
-	>
-	type $mol_view__sub_mol_page_8 = $mol_type_enforce<
-		ReturnType< $mol_page['body'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_scroll__sub_mol_page_9 = $mol_type_enforce<
-		ReturnType< $mol_page['body_content'] >
-		,
-		ReturnType< $mol_scroll['sub'] >
-	>
-	type $mol_view__dom_name_mol_page_10 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_view['dom_name'] >
-	>
-	type $mol_view__sub_mol_page_11 = $mol_type_enforce<
-		ReturnType< $mol_page['foot'] >
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	export class $mol_page extends $mol_view {
-		tabindex( ): number
-		Logo( ): any
-		title_content( ): readonly(any)[]
-		Title( ): $mol_view
-		tools( ): readonly($mol_view_content)[]
-		Tools( ): $mol_view
-		head( ): readonly(any)[]
-		Head( ): $mol_view
-		body_scroll_top( next?: ReturnType< ReturnType< $mol_page['Body'] >['scroll_top'] > ): ReturnType< ReturnType< $mol_page['Body'] >['scroll_top'] >
-		body( ): readonly($mol_view)[]
-		Body_content( ): $mol_view
-		body_content( ): readonly(any)[]
-		Body( ): $mol_scroll
-		foot( ): readonly($mol_view)[]
-		Foot( ): $mol_view
-		dom_name( ): string
-		attr( ): ({ 
-			'tabIndex': ReturnType< $mol_page['tabindex'] >,
-		})  & ReturnType< $mol_view['attr'] >
-		sub( ): readonly(any)[]
+	export class $optimade_zero_search_page extends $mol_page {
+		Input( ): $optimade_zero_search_input
+		arity( next?: string ): string
+		arity_dict( ): Record<string, any>
+		Arity_switch( ): $mol_switch
+		Arity( ): $mol_labeler
+		refinement_label( id: any): string
+		Refinement_label( id: any): $mol_view
+		show_more( id: any, next?: any ): any
+		Refinement_show_more( id: any): $mol_button_minor
+		refinement_label_sub( id: any): readonly(any)[]
+		refinement_link_arg( id: any): Record<string, any>
+		refinement_link_title( id: any): string
+		Refinement_link( id: any): $mol_link
+		refinement_content( id: any): readonly(any)[]
+		Refinement( id: any): $mol_labeler
+		refinement_rows( ): readonly(any)[]
+		Refinements( ): $mol_list
+		nothing_found( ): string
+		Nothing_found( ): $mol_view
+		Search( ): $optimade_zero_search
+		refinements_order( ): readonly(any)[]
+		body( ): readonly(any)[]
 	}
 	
 }
 
 //# sourceMappingURL=page.view.tree.d.ts.map
 declare namespace $.$$ {
+    class $optimade_zero_search_page extends $.$optimade_zero_search_page {
+        Search(): $optimade_zero_search;
+        body(): ($mol_view | $.$optimade_zero_search_input)[];
+        arity_dict(): {
+            unary: string;
+            binary: string;
+            ternary: string;
+            quaternary: string;
+        };
+        refinements(): {
+            payload: Record<string, (typeof $optimade_zero_search_refinement_item.Value)[]>;
+            error: string | null;
+            more: Record<string, boolean | undefined>;
+        };
+        refinement_rows(): ($mol_labeler | null)[];
+        refinement_label(facet: string): string;
+        refinement_content(facet: string): $.$mol_link[];
+        refinement_label_sub(facet: string): $mol_view[];
+        show_more(facet: string): void;
+        refinement_link_title(obj: typeof $optimade_zero_search_refinement_item.Value): string;
+        refinement_link_arg(obj: typeof $optimade_zero_search_refinement_item.Value): {
+            [x: string]: string;
+        };
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+    class $mol_store<Data> extends $mol_object2 {
+        data_default?: Data | undefined;
+        constructor(data_default?: Data | undefined);
+        data(next?: Data): NonNullable<Data> | (Data & null);
+        snapshot(next?: string): string;
+        value<Key extends keyof Data>(key: Key, next?: Data[Key]): Data[Key] & {};
+        selection<Key extends keyof Data>(key: Key, next?: number[]): number[];
+        sub<Key extends keyof Data, Lens extends $mol_store<Data[Key]> = $mol_store<NonNullable<Data[Key]>>>(key: Key, lens?: Lens): Lens;
+        reset(): void;
+        active(): boolean;
+    }
+}
+
+declare namespace $.$$ {
+    class $optimade_zero_entry extends $mol_store<typeof $optimade_zero_search_entry.Value> {
+        fields(): {
+            readonly entry_id: 0;
+            readonly formula: 1;
+            readonly property: 2;
+            readonly idk: 3;
+            readonly is_public: 4;
+            readonly bib_id: 5;
+            readonly year: 6;
+            readonly ref_id: 7;
+        };
+        cdn_uri(): string;
+        api_uri(): string;
+        id(): string;
+        id_prefix(): string;
+        type(): string;
+        formula_html(): string;
+        property(): string;
+        is_public(): boolean;
+        bib_id(): string | 0;
+        year(): number;
+        ref_id(): number;
+        res_link(fmt: 'pdf' | 'png' | 'gif' | 'json', sid?: string): string;
+        thumbs_link(): string;
+        links(sid?: string): Record<string, string>;
+    }
 }
 
 declare namespace $ {
@@ -3543,6 +3676,7 @@ declare namespace $ {
 //# sourceMappingURL=page.view.tree.d.ts.map
 declare namespace $.$$ {
     class $optimade_zero_entry_page extends $.$optimade_zero_entry_page {
+        Search(): $optimade_zero_search;
         title(): string;
         search_results(): $.$mol_card[];
         card_content(obj: $optimade_zero_entry): $mol_view[];
@@ -3560,18 +3694,6 @@ declare namespace $.$$ {
 declare namespace $.$$ {
 }
 
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_button_major extends $mol_button_minor {
-		theme( ): string
-	}
-	
-}
-
-//# sourceMappingURL=major.view.tree.d.ts.map
 declare namespace $ {
 
 	type $mol_view__sub_mol_form_field_1 = $mol_type_enforce<
@@ -3910,27 +4032,27 @@ declare namespace $.$$ {
 
 declare namespace $ {
 
-	type $mol_paragraph__title_optimade_zero_1 = $mol_type_enforce<
-		ReturnType< $optimade_zero['count'] >
-		,
-		ReturnType< $mol_paragraph['title'] >
-	>
-	type $mol_link__arg_optimade_zero_2 = $mol_type_enforce<
+	type $mol_link__arg_optimade_zero_1 = $mol_type_enforce<
 		({ 
 			'page': string,
 		}) 
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__sub_optimade_zero_3 = $mol_type_enforce<
+	type $mol_link__sub_optimade_zero_2 = $mol_type_enforce<
 		ReturnType< $optimade_zero['login_icon'] >
 		,
 		ReturnType< $mol_link['sub'] >
 	>
-	type $mol_link__hint_optimade_zero_4 = $mol_type_enforce<
+	type $mol_link__hint_optimade_zero_3 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link['hint'] >
+	>
+	type $mol_view__sub_optimade_zero_4 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
 	>
 	type $mol_link__arg_optimade_zero_5 = $mol_type_enforce<
 		({ 
@@ -3939,160 +4061,67 @@ declare namespace $ {
 		,
 		ReturnType< $mol_link['arg'] >
 	>
-	type $mol_link__sub_optimade_zero_6 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_link['sub'] >
-	>
-	type $optimade_zero_search_input__Search_optimade_zero_7 = $mol_type_enforce<
-		ReturnType< $optimade_zero['Search'] >
-		,
-		ReturnType< $optimade_zero_search_input['Search'] >
-	>
-	type $optimade_zero_search_input__clear_optimade_zero_8 = $mol_type_enforce<
-		ReturnType< $optimade_zero['clear_search'] >
-		,
-		ReturnType< $optimade_zero_search_input['clear'] >
-	>
-	type $mol_switch__value_optimade_zero_9 = $mol_type_enforce<
-		ReturnType< $optimade_zero['arity'] >
-		,
-		ReturnType< $mol_switch['value'] >
-	>
-	type $mol_switch__options_optimade_zero_10 = $mol_type_enforce<
-		ReturnType< $optimade_zero['arity_dict'] >
-		,
-		ReturnType< $mol_switch['options'] >
-	>
-	type $mol_labeler__title_optimade_zero_11 = $mol_type_enforce<
+	type $mol_link__title_optimade_zero_6 = $mol_type_enforce<
 		string
-		,
-		ReturnType< $mol_labeler['title'] >
-	>
-	type $mol_labeler__content_optimade_zero_12 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_link__arg_optimade_zero_13 = $mol_type_enforce<
-		ReturnType< $optimade_zero['refinement_link_arg'] >
-		,
-		ReturnType< $mol_link['arg'] >
-	>
-	type $mol_link__title_optimade_zero_14 = $mol_type_enforce<
-		ReturnType< $optimade_zero['refinement_link_title'] >
 		,
 		ReturnType< $mol_link['title'] >
 	>
-	type $mol_labeler__title_optimade_zero_15 = $mol_type_enforce<
-		ReturnType< $optimade_zero['refinement_title'] >
+	type $optimade_zero_search_page__Search_optimade_zero_7 = $mol_type_enforce<
+		ReturnType< $optimade_zero['Search'] >
 		,
-		ReturnType< $mol_labeler['title'] >
+		ReturnType< $optimade_zero_search_page['Search'] >
 	>
-	type $mol_labeler__content_optimade_zero_16 = $mol_type_enforce<
-		ReturnType< $optimade_zero['refinement_content'] >
-		,
-		ReturnType< $mol_labeler['content'] >
-	>
-	type $mol_list__rows_optimade_zero_17 = $mol_type_enforce<
-		ReturnType< $optimade_zero['refinements'] >
-		,
-		ReturnType< $mol_list['rows'] >
-	>
-	type $mol_view__sub_optimade_zero_18 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_optimade_zero_19 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_view__sub_optimade_zero_20 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	type $mol_page__title_optimade_zero_21 = $mol_type_enforce<
+	type $optimade_zero_search_page__title_optimade_zero_8 = $mol_type_enforce<
 		string
 		,
-		ReturnType< $mol_page['title'] >
+		ReturnType< $optimade_zero_search_page['title'] >
 	>
-	type $mol_page__tools_optimade_zero_22 = $mol_type_enforce<
-		ReturnType< $optimade_zero['search_page_tools'] >
-		,
-		ReturnType< $mol_page['tools'] >
-	>
-	type $mol_page__foot_optimade_zero_23 = $mol_type_enforce<
+	type $optimade_zero_search_page__tools_optimade_zero_9 = $mol_type_enforce<
 		readonly(any)[]
 		,
-		ReturnType< $mol_page['foot'] >
+		ReturnType< $optimade_zero_search_page['tools'] >
 	>
-	type $mol_page__body_optimade_zero_24 = $mol_type_enforce<
-		ReturnType< $optimade_zero['search_page_body'] >
+	type $optimade_zero_search_page__foot_optimade_zero_10 = $mol_type_enforce<
+		ReturnType< $optimade_zero['search_page_foot'] >
 		,
-		ReturnType< $mol_page['body'] >
+		ReturnType< $optimade_zero_search_page['foot'] >
 	>
-	type $optimade_zero_entry_page__Search_optimade_zero_25 = $mol_type_enforce<
+	type $optimade_zero_entry_page__Search_optimade_zero_11 = $mol_type_enforce<
 		ReturnType< $optimade_zero['Search'] >
 		,
 		ReturnType< $optimade_zero_entry_page['Search'] >
 	>
-	type $optimade_zero_entry_page__User_optimade_zero_26 = $mol_type_enforce<
+	type $optimade_zero_entry_page__User_optimade_zero_12 = $mol_type_enforce<
 		ReturnType< $optimade_zero['User'] >
 		,
 		ReturnType< $optimade_zero_entry_page['User'] >
 	>
-	type $optimade_zero_user_page__User_optimade_zero_27 = $mol_type_enforce<
+	type $optimade_zero_user_page__User_optimade_zero_13 = $mol_type_enforce<
 		ReturnType< $optimade_zero['User'] >
 		,
 		ReturnType< $optimade_zero_user_page['User'] >
 	>
-	type $optimade_zero_search__params_optimade_zero_28 = $mol_type_enforce<
-		ReturnType< $optimade_zero['search_params'] >
+	type $mol_view__sub_optimade_zero_14 = $mol_type_enforce<
+		readonly(any)[]
 		,
-		ReturnType< $optimade_zero_search['params'] >
+		ReturnType< $mol_view['sub'] >
 	>
 	export class $optimade_zero extends $mol_book2 {
-		search_params( next?: Record<string, any> ): Record<string, any>
-		search_error( ): ReturnType< ReturnType< $optimade_zero['Search'] >['error'] >
-		count( ): string
-		Count( ): $mol_paragraph
-		search_page_tools( ): readonly(any)[]
+		error( ): string
 		Login_icon( ): $mol_icon_login
 		Account_icon( ): $mol_icon_account
 		login_icon( ): readonly(any)[]
 		Login( ): $mol_link
-		Open_results_icon( ): $mol_icon_arrow_right_bold
-		open_results_label( ): string
-		Open_results_icon2( ): $mol_icon_arrow_right_bold
+		search_count( ): string
+		Search_count( ): $mol_view
 		Open_results( ): $mol_link
-		clear_search( next?: any ): any
-		Search_input( ): $optimade_zero_search_input
-		arity( next?: string ): string
-		arity_dict( ): Record<string, any>
-		Arity_switch( ): $mol_switch
-		Arity( ): $mol_labeler
-		refinement_title( id: any): string
-		refinement_link_arg( id: any): Record<string, any>
-		refinement_link_title( id: any): string
-		Refinement_link( id: any): $mol_link
-		refinement_content( id: any): readonly(any)[]
-		Refinement( id: any): $mol_labeler
-		refinements( ): readonly(any)[]
-		Refinements( ): $mol_list
-		Search_error( ): $mol_view
-		nothing_found( ): string
-		Search_nothing_found( ): $mol_view
-		start_typing( ): string
-		Search_start_typing( ): $mol_view
-		search_page_body( ): readonly(any)[]
-		Search_page( ): $mol_page
+		search_page_foot( ): readonly(any)[]
+		Search_page( ): $optimade_zero_search_page
 		Results_page( ): $optimade_zero_entry_page
 		User_page( ): $optimade_zero_user_page
 		Search( ): $optimade_zero_search
 		User( ): $optimade_zero_user
+		Error( ): $mol_view
 		pages( ): readonly(any)[]
 	}
 	
@@ -4101,21 +4130,13 @@ declare namespace $ {
 //# sourceMappingURL=zero.view.tree.d.ts.map
 declare namespace $.$$ {
     class $optimade_zero extends $.$optimade_zero {
-        pages(): ($.$optimade_zero_entry_page | $mol_page | $.$optimade_zero_user_page)[];
-        count(): string;
-        search_params(next?: $optimade_zero_search_params): $optimade_zero_search_params;
-        search_empty(): boolean;
-        search_page_tools(): $.$mol_paragraph[];
-        search_page_body(): ($mol_view | $.$optimade_zero_search_input)[];
-        arity_dict(): Record<string, string>;
-        refinements(): ($mol_labeler | null)[];
-        refinement_title(facet: keyof $optimade_zero_search_params): string;
-        refinement_content(facet: keyof $optimade_zero_search_params): $.$mol_link[];
-        refinement_link_title(obj: typeof $optimade_zero_search_refinement_item.Value): string;
-        refinement_link_arg(obj: typeof $optimade_zero_search_refinement_item.Value): $optimade_zero_search_params;
-        arity(next?: string): string;
+        Search(): $optimade_zero_search;
+        search_param(facet: string, next?: string | null): string;
+        pages(): ($.$optimade_zero_search_page | $.$optimade_zero_entry_page | $.$optimade_zero_user_page)[];
+        search_page_foot(): $mol_view[];
+        error(): string;
+        search_count(): string;
         login_icon(): $mol_icon_account[];
-        clear_search(): void;
     }
 }
 

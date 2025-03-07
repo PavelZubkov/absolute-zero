@@ -15,13 +15,6 @@ $mol_book2 $mol_scroll
 	Placeholder $mol_view
 	Gap* $mol_view title \
 
-$mol_paragraph $mol_view
-	line_height 24
-	letter_width 7
-	width_limit +Infinity
-	row_width 0
-	sub / <= title
-
 $mol_svg $mol_view
 	dom_name \svg
 	dom_name_space \http://www.w3.org/2000/svg
@@ -76,9 +69,64 @@ $mol_link $mol_view
 		^
 		click?event <=> click?event <=> event_click?event null
 
-$mol_icon_arrow_right $mol_icon path \M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z
+$optimade_zero_search $mol_object
+	suggests_uri \https://api.mpds.io/v0/search/selectize
+	search_uri \https://api.mpds.io/v0/search/facet
+	refinements_uri \https://api.mpds.io/v0/search/refinement
+	refinements_extend_param \extd_refine
+	-
+	param*? \
+	separators *
+		elements \-
+		default \,
+	arity *
+		unary @ \Unary
+		binary @ \Binary
+		ternary @ \Ternary
+		quaternary @ \Quaternary
+	facet *
+		aeatoms @ \Polyhedron atoms
+		aetypes @ \Polyhedral type
+		authors @ \Authors
+		classes @ \Materials classes
+		codens @ \Journal codes
+		doi @ \DOI
+		elements @ \Chemical elements
+		formulae @ \Chemical formulae
+		geos @ \Geography
+		lattices @ \Crystal systems
+		numeric @ \Numerical search
+		orgs @ \Organization
+		props @ \Physical properties
+		protos @ \Prototypes
+		sgs @ \Space groups
+		years @ \Years
 
-$mol_icon_arrow_right_bold $mol_icon path \M4,15V9H12V4.16L19.84,12L12,19.84V15H4Z
+$mol_page $mol_view
+	dom_name \article
+	attr *
+		^
+		tabIndex <= tabindex -1
+	sub /
+		<= Head $mol_view
+			minimal_height 64
+			dom_name \header
+			sub <= head /
+				<= Title $mol_view
+					dom_name \h1
+					sub <= title_content /
+						<= Logo null
+						<= title
+				<= Tools $mol_view
+					sub <= tools /$mol_view_content
+		<= Body $mol_scroll
+			scroll_top? => body_scroll_top?
+			sub <= body_content /
+				<= Body_content $mol_view
+					sub <= body /$mol_view
+		<= Foot $mol_view
+			dom_name \footer
+			sub <= foot /$mol_view
 
 $mol_pop $mol_view
 	showed? false
@@ -217,6 +265,13 @@ $mol_list $mol_view
 		0
 		0
 
+$mol_paragraph $mol_view
+	line_height 24
+	letter_width 7
+	width_limit +Infinity
+	row_width 0
+	sub / <= title
+
 $mol_dimmer $mol_paragraph
 	haystack \
 	needle \
@@ -266,6 +321,9 @@ $mol_search $mol_pop
 			<= Suggest_label* $mol_dimmer
 				haystack <= suggest_label* \
 				needle <= query? \
+
+$mol_button_major $mol_button_minor
+	theme \$mol_theme_base
 
 $mol_image $mol_view
 	dom_name \img
@@ -355,7 +413,10 @@ $optimade_zero_search_input $mol_search
 		<= Input $mol_view
 			sub /
 				<= Query
-				<= Clear
+				<= Clear_button $mol_button_major
+					enabled <= clear_enabled false
+					click? <=> clear? null
+					title @ \Clear
 		<= Tags $mol_view
 			sub <= tags /
 				<= Tag*0 $optimade_zero_search_tag
@@ -401,31 +462,39 @@ $mol_labeler $mol_list
 			minimal_height 24
 			sub <= content /
 
-$mol_page $mol_view
-	dom_name \article
-	attr *
-		^
-		tabIndex <= tabindex -1
-	sub /
-		<= Head $mol_view
-			minimal_height 64
-			dom_name \header
-			sub <= head /
-				<= Title $mol_view
-					dom_name \h1
-					sub <= title_content /
-						<= Logo null
-						<= title
-				<= Tools $mol_view
-					sub <= tools /$mol_view_content
-		<= Body $mol_scroll
-			scroll_top? => body_scroll_top?
-			sub <= body_content /
-				<= Body_content $mol_view
-					sub <= body /$mol_view
-		<= Foot $mol_view
-			dom_name \footer
-			sub <= foot /$mol_view
+$optimade_zero_search_page $mol_page
+	Search $optimade_zero_search
+	refinements_order /
+		\elements
+		\formulae
+		\props
+		\classes
+		\lattices
+	body /
+		<= Input $optimade_zero_search_input
+			Search <= Search
+		<= Arity $mol_labeler
+			title @ \Arity
+			content /
+				<= Arity_switch $mol_switch
+					value? <=> arity? \
+					options <= arity_dict *
+		<= Refinements $mol_list
+			rows <= refinement_rows /
+				<= Refinement*0 $mol_labeler
+					label <= refinement_label_sub* /
+						<= Refinement_label* $mol_view
+							sub /
+								<= refinement_label* \
+						<= Refinement_show_more* $mol_button_minor
+							click? <=> show_more*? null
+							title @ \show more
+					content <= refinement_content* /
+						<= Refinement_link*0 $mol_link
+							arg <= refinement_link_arg* *
+							title <= refinement_link_title* \
+		<= Nothing_found $mol_view
+			sub / <= nothing_found @ \Nothing found	
 
 $mol_card $mol_list
 	attr *
@@ -492,9 +561,6 @@ $optimade_zero_entry_page $mol_page
 									target \_blank
 				<= Item*0 $mol_row
 					sub <= item_row* /
-
-$mol_button_major $mol_button_minor
-	theme \$mol_theme_base
 
 $mol_form_field $mol_labeler
 	bids /string
@@ -588,52 +654,28 @@ $optimade_zero_user_page $mol_page
 
 $optimade_zero $mol_book2
 	Search $optimade_zero_search
-		params? <=> search_params? *
-		error => search_error
 	User $optimade_zero_user
+	Error $mol_view
+		sub /
+			<= error \
 	pages /
-		<= Search_page $mol_page
+		<= Search_page $optimade_zero_search_page
+			Search <= Search
 			title \−273.15°C
-			tools <= search_page_tools /
-				<= Count $mol_paragraph
-					title <= count @ \Estimated results count {count}
-			foot /
+			tools /
 				<= Login $mol_link
 					arg * page \user
 					sub <= login_icon /
 						<= Login_icon $mol_icon_login
 						<= Account_icon $mol_icon_account
 					hint \Login
+			foot <= search_page_foot /
+				<= Search_count $mol_view
+					sub /
+						<= search_count @ \Estimated count {count}
 				<= Open_results $mol_link
 					arg * page \results
-					sub / 
-						<= Open_results_icon $mol_icon_arrow_right_bold
-						<= open_results_label @ \Open results
-						<= Open_results_icon2 $mol_icon_arrow_right_bold
-			body <= search_page_body /
-				<= Search_input $optimade_zero_search_input
-					Search <= Search
-					clear? <=> clear_search? null
-				<= Arity $mol_labeler
-					title @ \Arity
-					content /
-						<= Arity_switch $mol_switch
-							value? <=> arity? \
-							options <= arity_dict *
-				<= Refinements $mol_list
-					rows <= refinements /
-						<= Refinement*0 $mol_labeler
-							title <= refinement_title* \
-							content <= refinement_content* /
-								<= Refinement_link*0 $mol_link
-									arg <= refinement_link_arg* *
-									title <= refinement_link_title* \
-				<= Search_error $mol_view
-					sub / <= search_error
-				<= Search_nothing_found $mol_view
-					sub / <= nothing_found @ \Nothing found	
-				<= Search_start_typing $mol_view
-					sub / <= start_typing @ \Start typing
+					title @ \Search Results
 		<= Results_page $optimade_zero_entry_page 
 			Search <= Search
 			User <= User
