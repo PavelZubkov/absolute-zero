@@ -20,3 +20,7 @@
 	pack icon git \https://github.com/nin-jin/mol_icon.git
 \/mol/view
 	include \/mol/view/tree/test
+\/optimade/zero
+	deploy \/optimade/zero/logo/logo.svg
+	deploy \/optimade/zero/manifest.json
+	include \/mol/offline/install
