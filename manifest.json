@@ -1,0 +1,15 @@
+{
+	"short_name": "zero",
+	"name": "$optimade_zero",
+	"icons": [
+		{
+			"src": "../../optimade/zero/logo/logo.svg",
+			"type": "image/svg+xml",
+			"sizes": "129x304"
+		}
+	],
+	"start_url": "../..",
+	"background_color": "#000000",
+	"theme_color": "#000000",
+	"display": "standalone"
+}

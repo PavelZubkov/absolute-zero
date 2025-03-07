@@ -1,0 +1,4 @@
+deploy \/optimade/zero/logo/logo.svg
+deploy \/optimade/zero/manifest.json
+
+include \/mol/offline/install
