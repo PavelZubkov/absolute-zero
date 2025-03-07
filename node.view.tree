@@ -69,6 +69,42 @@ $mol_link $mol_view
 		^
 		click?event <=> click?event <=> event_click?event null
 
+$mol_speck $mol_view
+	attr *
+		^
+		mol_theme <= theme \$mol_theme_accent
+	style *
+		^
+		minHeight \1em
+	sub /
+		<= value null
+
+$mol_button $mol_view
+	enabled true
+	click?event null
+	event_click?event null
+	event *
+		^
+		click?event <=> event_activate?event null
+		dblclick?event <=> clicks?event null
+		keydown?event <=> event_key_press?event null 
+	attr *
+		^
+		disabled <= disabled false
+		role \button
+		tabindex <= tab_index 0
+		title <= hint_safe <= hint \
+	sub /$mol_view_content
+		<= title
+	Speck $mol_speck
+		value <= error \
+
+$mol_button_typed $mol_button
+	minimal_height 40
+	minimal_width 40
+
+$mol_button_minor $mol_button_typed
+
 $optimade_zero_search $mol_object
 	suggests_uri \https://api.mpds.io/v0/search/selectize
 	search_uri \https://api.mpds.io/v0/search/facet
@@ -101,6 +137,22 @@ $optimade_zero_search $mol_object
 		protos @ \Prototypes
 		sgs @ \Space groups
 		years @ \Years
+	examples /
+		\thermal expansion AB₂C₄
+		\Cr₂FeS₄ monoclinic crystal
+		\thermal expansion of HfB₂
+		\CeRhIn₅ orthorhombic crystal
+		\Cu₃Au tetragonal crystal
+		\optical properties ABC
+		\paramagnet Mn-Cs
+		\pnictogen group, bromide
+		\superconductivity AB₂C₃
+		\ab initio literature Se-Y
+		\phosphate, cubic crystal
+		\Zn-Cr-S, orthorhombic crystal
+		\metal Sr-Mo
+		\thermal expansion for ionic conductors
+		\electronic properties for arsenides
 
 $mol_page $mol_view
 	dom_name \article
@@ -217,42 +269,6 @@ $mol_string $mol_view
 			key * enter?event <=> submit?event null
 
 $mol_icon_close $mol_icon path \M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z
-
-$mol_speck $mol_view
-	attr *
-		^
-		mol_theme <= theme \$mol_theme_accent
-	style *
-		^
-		minHeight \1em
-	sub /
-		<= value null
-
-$mol_button $mol_view
-	enabled true
-	click?event null
-	event_click?event null
-	event *
-		^
-		click?event <=> event_activate?event null
-		dblclick?event <=> clicks?event null
-		keydown?event <=> event_key_press?event null 
-	attr *
-		^
-		disabled <= disabled false
-		role \button
-		tabindex <= tab_index 0
-		title <= hint_safe <= hint \
-	sub /$mol_view_content
-		<= title
-	Speck $mol_speck
-		value <= error \
-
-$mol_button_typed $mol_button
-	minimal_height 40
-	minimal_width 40
-
-$mol_button_minor $mol_button_typed
 
 $mol_list $mol_view
 	render_visible_only true
@@ -670,6 +686,11 @@ $optimade_zero $mol_book2
 						<= Account_icon $mol_icon_account
 					hint \Login
 			foot <= search_page_foot /
+				<= Example $mol_button_minor
+					click? <=> example_open? null
+					sub /
+						\e.g. 
+						<= example_title \
 				<= Search_count $mol_view
 					sub /
 						<= search_count @ \Estimated count {count}
