@@ -53,6 +53,13 @@ namespace $.$$ {
 		id: Str,
 	} ) )
 
+	const Guess_results = Rec( {
+		formulae: Maybe( Str ),
+		elements: Maybe( Str ),
+		props: Maybe( Str ),
+		classes: Maybe( Str ),
+	} )
+
 	type Refinement = { payload: Record<string, typeof $optimade_zero_search_refinement_item.Value[]>, error: string | null, more: Record<string, boolean | undefined> }
 
 	export class $optimade_zero_search extends $.$optimade_zero_search {
@@ -207,6 +214,19 @@ namespace $.$$ {
 			return arity
 		}
 
+		@$mol_mem
+		search_parser_lib() {
+			return $mol_import.script( 'https://unpkg.com/optimade-mpds-nlp@0.1.7/index.js' ).OptimadeNLP()
+		}
+
+		guess(example: string) {
+			const res = this.search_parser_lib().guess( example )
+			const params = Guess_results(res)
+
+			for( const [facet, value] of Object.entries( params ) ) {
+				if (value) this.param_add( facet, value )
+			}
+		}
 
 	}
 }

@@ -27,6 +27,7 @@ namespace $.$$ {
 			const error = !empty && this.Search().search().error
 
 			return [
+				... empty ? [this.Example()] : [],
 				... !empty && error ? [this.Error()] : [],
 				... !empty && !error ? [this.Search_count()] : [],
 				... !empty && !error ? [this.Open_results()] : [],
@@ -45,6 +46,21 @@ namespace $.$$ {
 
 		login_icon() {
 			return this.User().signed() ? [ this.Account_icon() ] : [ this.Login_icon() ]
+		}
+
+		@$mol_mem
+		example_title() {
+			$mol_state_time.now(2000)
+			return this.$.$mol_array_lottery( this.Search().examples() )
+		}
+
+		example_open() {
+			const title = this.example_title()
+			this.Search().guess(title)
+		}
+
+		auto() {
+			this.Search().search_parser_lib()
 		}
 
 	}

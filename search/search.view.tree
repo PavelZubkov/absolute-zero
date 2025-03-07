@@ -30,3 +30,19 @@ $optimade_zero_search $mol_object
 		protos @ \Prototypes
 		sgs @ \Space groups
 		years @ \Years
+	examples /
+		\thermal expansion AB₂C₄
+		\Cr₂FeS₄ monoclinic crystal
+		\thermal expansion of HfB₂
+		\CeRhIn₅ orthorhombic crystal
+		\Cu₃Au tetragonal crystal
+		\optical properties ABC
+		\paramagnet Mn-Cs
+		\pnictogen group, bromide
+		\superconductivity AB₂C₃
+		\ab initio literature Se-Y
+		\phosphate, cubic crystal
+		\Zn-Cr-S, orthorhombic crystal
+		\metal Sr-Mo
+		\thermal expansion for ionic conductors
+		\electronic properties for arsenides

@@ -16,6 +16,11 @@ $optimade_zero $mol_book2
 						<= Account_icon $mol_icon_account
 					hint \Login
 			foot <= search_page_foot /
+				<= Example $mol_button_minor
+					click? <=> example_open? null
+					sub /
+						\e.g. 
+						<= example_title \
 				<= Search_count $mol_view
 					sub /
 						<= search_count @ \Estimated count {count}
