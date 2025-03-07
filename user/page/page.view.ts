@@ -33,6 +33,12 @@ namespace $.$$ {
 			this.User().pass_recovery(this.login())
 			this.$.$mol_state_arg.value('recovery', 'check')
 		}
+
+		foot() {
+			return [
+				...this.User().signed() ? [this.Sign_out_button()] : [],
+			]
+		}
 		
 	}
 }
