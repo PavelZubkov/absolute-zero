@@ -3,7 +3,7 @@ namespace $.$$ {
 
 		title() {
 			return this.User().signed()
-				? this.welcome_label().replace('{name}', this.User().name())
+				? this.welcome_label().replace('{name}', this.User().name().trim() || 'Anonymous')
 				: this.sign_in_label()
 		}
 

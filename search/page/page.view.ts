@@ -69,21 +69,17 @@ namespace $.$$ {
 			return { ...this.$.$mol_state_arg.dict(), ...search.param_dict() }
 		}
 
-		// @$mol_mem
-		// arity( next?: string ) {
-		// 	if( next !== undefined ) {
-		// 		const reset = Object.values( this.Search().arity_names() )
-		// 		reset.forEach( val => this.Search().param_drop( 'classes', val ) )
+		@$mol_mem
+		arity( next?: string ) {
+			if( next !== undefined ) {
+				const reset = Object.keys( this.Search().arity() )
+				reset.forEach( val => this.Search().param_drop( 'classes', val ) )
 
-		// 		this.Search().param_add( 'classes', next )
-		// 	}
+				this.Search().param_add( 'classes', next )
+			}
 
-		// 	return next ?? ''
-		// }
-
-		// clear_search() {
-		// 	this.search_params( {} )
-		// }
+			return next ?? ''
+		}
 		
 	}
 }
