@@ -1,4 +1,4 @@
-namespace $ {
+namespace $.$$ {
 	export class $optimade_zero_entry extends $mol_store<typeof $optimade_zero_search_entry.Value> {
 
 		fields() {

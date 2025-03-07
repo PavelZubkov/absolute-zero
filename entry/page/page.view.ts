@@ -1,14 +1,18 @@
 namespace $.$$ {
 	export class $optimade_zero_entry_page extends $.$optimade_zero_entry_page {
 
+		@$mol_mem
+		Search() {
+			return new $optimade_zero_search
+		}
+
 		title() {
-			return super.title().replace( '{count}', `${ this.Search().results().length }` )
+			return super.title().replace( '{count}', `${ this.Search().search()?.out?.length ?? 0 }` )
 		}
 
 		search_results() {
-			if( !this.Search().params_labels().length ) return []
-
-			return this.Search().results().map( obj => this.Card( obj ) )
+			const out = this.Search().search().out
+			return out?.map( obj => this.Card( obj ) ) ?? []
 		}
 
 		card_content( obj: $optimade_zero_entry ) {

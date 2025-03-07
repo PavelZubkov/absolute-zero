@@ -1,0 +1,33 @@
+$optimade_zero_search_page $mol_page
+	Search $optimade_zero_search
+	refinements_order /
+		\elements
+		\formulae
+		\props
+		\classes
+		\lattices
+	body /
+		<= Input $optimade_zero_search_input
+			Search <= Search
+		<= Arity $mol_labeler
+			title @ \Arity
+			content /
+				<= Arity_switch $mol_switch
+					value? <=> arity? \
+					options <= arity_dict *
+		<= Refinements $mol_list
+			rows <= refinement_rows /
+				<= Refinement*0 $mol_labeler
+					label <= refinement_label_sub* /
+						<= Refinement_label* $mol_view
+							sub /
+								<= refinement_label* \
+						<= Refinement_show_more* $mol_button_minor
+							click? <=> show_more*? null
+							title @ \show more
+					content <= refinement_content* /
+						<= Refinement_link*0 $mol_link
+							arg <= refinement_link_arg* *
+							title <= refinement_link_title* \
+		<= Nothing_found $mol_view
+			sub / <= nothing_found @ \Nothing found	

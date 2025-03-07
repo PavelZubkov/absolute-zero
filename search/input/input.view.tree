@@ -6,7 +6,10 @@ $optimade_zero_search_input $mol_search
 		<= Input $mol_view
 			sub /
 				<= Query
-				<= Clear
+				<= Clear_button $mol_button_major
+					enabled <= clear_enabled false
+					click? <=> clear? null
+					title @ \Clear
 		<= Tags $mol_view
 			sub <= tags /
 				<= Tag*0 $optimade_zero_search_tag

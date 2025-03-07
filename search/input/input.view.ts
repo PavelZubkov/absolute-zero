@@ -1,8 +1,13 @@
 namespace $.$$ {
 
-	type Search_params_label = ReturnType<$optimade_zero_search['params_labels']>[number]
+	type Label = { facet: string, title: string }
 
 	export class $optimade_zero_search_input extends $.$optimade_zero_search_input {
+
+		@ $mol_mem
+		Search() {
+			return new $optimade_zero_search
+		}
 
 		@$mol_mem_key
 		suggests_request( key: string ) {
@@ -29,15 +34,27 @@ namespace $.$$ {
 
 		@ $mol_mem
 		tags() {
-			return this.Search().params_labels().map(obj => this.Tag(obj))
+			const list = [] as Label[]
+
+			const keys = Object.keys(this.Search().facet()).sort((a, b) => a.localeCompare(b))
+
+			for( const facet of keys ) {
+				const value = this.Search().param( facet )
+				if( !value ) continue
+
+				const values = value.split( this.Search().separator( facet ) )
+				values.forEach( title => list.push( { facet, title } ) )
+			}
+
+			return list.map(obj => this.Tag(obj))
 		}
 
-		tag_label(obj: Search_params_label) {
-			return obj.label
+		tag_label(obj: Label) {
+			return obj.title
 		}
 
-		tag_drop(obj: Search_params_label) {
-			this.Search().param_drop(obj.facet, obj.label)
+		tag_drop(obj: Label) {
+			this.Search().param_drop(obj.facet, obj.title)
 		}
 
 		suggest_html_label( suggest_label: string ) {
@@ -48,6 +65,14 @@ namespace $.$$ {
 			const suggest = this.suggests_request(this.query()).find(obj => obj.label === suggest_label)!
 
 			return suggest.facet === 'formulae' ? [this.Suggest_formula(suggest_label)] : super.suggest_content(suggest_label)
+		}
+
+		clear_enabled(): boolean {
+			return !this.Search().is_empty()
+		}
+
+		clear() {
+			this.Search().drop_all()
 		}
 
 	}

@@ -1,0 +1,32 @@
+$optimade_zero_search $mol_object
+	suggests_uri \https://api.mpds.io/v0/search/selectize
+	search_uri \https://api.mpds.io/v0/search/facet
+	refinements_uri \https://api.mpds.io/v0/search/refinement
+	refinements_extend_param \extd_refine
+	-
+	param*? \
+	separators *
+		elements \-
+		default \,
+	arity *
+		unary @ \Unary
+		binary @ \Binary
+		ternary @ \Ternary
+		quaternary @ \Quaternary
+	facet *
+		aeatoms @ \Polyhedron atoms
+		aetypes @ \Polyhedral type
+		authors @ \Authors
+		classes @ \Materials classes
+		codens @ \Journal codes
+		doi @ \DOI
+		elements @ \Chemical elements
+		formulae @ \Chemical formulae
+		geos @ \Geography
+		lattices @ \Crystal systems
+		numeric @ \Numerical search
+		orgs @ \Organization
+		props @ \Physical properties
+		protos @ \Prototypes
+		sgs @ \Space groups
+		years @ \Years

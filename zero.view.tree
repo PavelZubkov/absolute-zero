@@ -1,51 +1,27 @@
 $optimade_zero $mol_book2
 	Search $optimade_zero_search
-		params? <=> search_params? *
-		error => search_error
 	User $optimade_zero_user
+	Error $mol_view
+		sub /
+			<= error \
 	pages /
-		<= Search_page $mol_page
+		<= Search_page $optimade_zero_search_page
+			Search <= Search
 			title \−273.15°C
-			tools <= search_page_tools /
-				<= Count $mol_paragraph
-					title <= count @ \Estimated results count {count}
-			foot /
+			tools /
 				<= Login $mol_link
 					arg * page \user
 					sub <= login_icon /
 						<= Login_icon $mol_icon_login
 						<= Account_icon $mol_icon_account
 					hint \Login
+			foot <= search_page_foot /
+				<= Search_count $mol_view
+					sub /
+						<= search_count @ \Estimated count {count}
 				<= Open_results $mol_link
 					arg * page \results
-					sub / 
-						<= Open_results_icon $mol_icon_arrow_right_bold
-						<= open_results_label @ \Open results
-						<= Open_results_icon2 $mol_icon_arrow_right_bold
-			body <= search_page_body /
-				<= Search_input $optimade_zero_search_input
-					Search <= Search
-					clear? <=> clear_search? null
-				<= Arity $mol_labeler
-					title @ \Arity
-					content /
-						<= Arity_switch $mol_switch
-							value? <=> arity? \
-							options <= arity_dict *
-				<= Refinements $mol_list
-					rows <= refinements /
-						<= Refinement*0 $mol_labeler
-							title <= refinement_title* \
-							content <= refinement_content* /
-								<= Refinement_link*0 $mol_link
-									arg <= refinement_link_arg* *
-									title <= refinement_link_title* \
-				<= Search_error $mol_view
-					sub / <= search_error
-				<= Search_nothing_found $mol_view
-					sub / <= nothing_found @ \Nothing found	
-				<= Search_start_typing $mol_view
-					sub / <= start_typing @ \Start typing
+					title @ \Search Results
 		<= Results_page $optimade_zero_entry_page 
 			Search <= Search
 			User <= User

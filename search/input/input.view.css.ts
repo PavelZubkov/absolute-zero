@@ -16,6 +16,10 @@ namespace $.$$ {
 				padding: 0,
 			},
 		},
+
+		Input: {
+			gap: $mol_gap.space,
+		},
 		
 		Tags: {
 			flexWrap: 'wrap',
