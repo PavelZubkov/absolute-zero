@@ -3219,6 +3219,7 @@ declare namespace $.$$ {
         refinement_link_arg(obj: typeof $optimade_zero_search_refinement_item.Value): {
             [x: string]: string;
         };
+        arity(next?: string): string;
     }
 }
 

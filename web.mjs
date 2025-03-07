@@ -8635,6 +8635,14 @@ var $;
                 search.param_add(obj.facet, obj.value);
                 return { ...this.$.$mol_state_arg.dict(), ...search.param_dict() };
             }
+            arity(next) {
+                if (next !== undefined) {
+                    const reset = Object.keys(this.Search().arity());
+                    reset.forEach(val => this.Search().param_drop('classes', val));
+                    this.Search().param_add('classes', next);
+                }
+                return next ?? '';
+            }
         }
         __decorate([
             $mol_mem
@@ -8648,6 +8656,9 @@ var $;
         __decorate([
             $mol_mem_key
         ], $optimade_zero_search_page.prototype, "refinement_link_arg", null);
+        __decorate([
+            $mol_mem
+        ], $optimade_zero_search_page.prototype, "arity", null);
         $$.$optimade_zero_search_page = $optimade_zero_search_page;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -9731,7 +9742,7 @@ var $;
         class $optimade_zero_user_page extends $.$optimade_zero_user_page {
             title() {
                 return this.User().signed()
-                    ? this.welcome_label().replace('{name}', this.User().name())
+                    ? this.welcome_label().replace('{name}', this.User().name().trim() || 'Anonymous')
                     : this.sign_in_label();
             }
             body() {
