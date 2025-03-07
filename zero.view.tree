@@ -4,11 +4,14 @@ $optimade_zero $mol_book2
 	Error $mol_view
 		sub /
 			<= error \
+	plugins /
+		<= Theme $mol_theme_auto
 	pages /
 		<= Search_page $optimade_zero_search_page
 			Search <= Search
 			title \−273.15°C
 			tools /
+				<= Lighter $mol_lights_toggle
 				<= Login $mol_link
 					arg * page \user
 					sub <= login_icon /
