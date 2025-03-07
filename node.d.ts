@@ -3382,8 +3382,8 @@ declare namespace $ {
 		arity_dict( ): Record<string, any>
 		Arity_switch( ): $mol_switch
 		Arity( ): $mol_labeler
-		refinement_label( id: any): string
-		Refinement_label( id: any): $mol_view
+		refinement_title( id: any): string
+		Refinement_title( id: any): $mol_view
 		show_more( id: any, next?: any ): any
 		Refinement_show_more( id: any): $mol_button_minor
 		refinement_label_sub( id: any): readonly(any)[]
@@ -3420,7 +3420,7 @@ declare namespace $.$$ {
             more: Record<string, boolean | undefined>;
         };
         refinement_rows(): ($mol_labeler | null)[];
-        refinement_label(facet: string): string;
+        refinement_title(facet: string): string;
         refinement_content(facet: string): $.$mol_link[];
         refinement_label_sub(facet: string): $mol_view[];
         show_more(facet: string): void;

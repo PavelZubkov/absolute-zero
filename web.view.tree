@@ -511,9 +511,9 @@ $optimade_zero_search_page $mol_page
 			rows <= refinement_rows /
 				<= Refinement*0 $mol_labeler
 					label <= refinement_label_sub* /
-						<= Refinement_label* $mol_view
+						<= Refinement_title* $mol_view
 							sub /
-								<= refinement_label* \
+								<= refinement_title* \
 						<= Refinement_show_more* $mol_button_minor
 							click? <=> show_more*? null
 							title @ \show more

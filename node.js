@@ -9280,12 +9280,12 @@ var $;
 			(obj.content) = () => ([(this.Arity_switch())]);
 			return obj;
 		}
-		refinement_label(id){
+		refinement_title(id){
 			return "";
 		}
-		Refinement_label(id){
+		Refinement_title(id){
 			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.refinement_label(id))]);
+			(obj.sub) = () => ([(this.refinement_title(id))]);
 			return obj;
 		}
 		show_more(id, next){
@@ -9299,7 +9299,7 @@ var $;
 			return obj;
 		}
 		refinement_label_sub(id){
-			return [(this.Refinement_label(id)), (this.Refinement_show_more(id))];
+			return [(this.Refinement_title(id)), (this.Refinement_show_more(id))];
 		}
 		refinement_link_arg(id){
 			return {};
@@ -9364,7 +9364,7 @@ var $;
 	($mol_mem(($.$optimade_zero_search_page.prototype), "arity"));
 	($mol_mem(($.$optimade_zero_search_page.prototype), "Arity_switch"));
 	($mol_mem(($.$optimade_zero_search_page.prototype), "Arity"));
-	($mol_mem_key(($.$optimade_zero_search_page.prototype), "Refinement_label"));
+	($mol_mem_key(($.$optimade_zero_search_page.prototype), "Refinement_title"));
 	($mol_mem_key(($.$optimade_zero_search_page.prototype), "show_more"));
 	($mol_mem_key(($.$optimade_zero_search_page.prototype), "Refinement_show_more"));
 	($mol_mem_key(($.$optimade_zero_search_page.prototype), "Refinement_link"));
@@ -9410,7 +9410,7 @@ var $;
                 const list = this.refinements_order().map(facet => obj[facet]?.length ? this.Refinement(facet) : null);
                 return list.filter(Boolean);
             }
-            refinement_label(facet) {
+            refinement_title(facet) {
                 return this.Search().facet()[facet];
             }
             refinement_content(facet) {
@@ -9418,7 +9418,7 @@ var $;
             }
             refinement_label_sub(facet) {
                 return [
-                    this.Refinement_label(facet),
+                    this.Refinement_title(facet),
                     ...!this.Search().refinements().more[facet] ? [this.Refinement_show_more(facet)] : [],
                 ];
             }
@@ -9478,12 +9478,10 @@ var $;
                 padding: '100px',
                 margin: 'auto',
             },
-            Refinement_label: {
-                padding: $mol_gap.text,
-            },
             Refinement: {
                 Label: {
                     justifyContent: 'space-between',
+                    alignItems: 'center',
                 },
             },
         });
